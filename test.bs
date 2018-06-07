@@ -1,0 +1,25 @@
+Comment test.bs
+Comment This is an example of a basic program
+Comment
+Comment This form of basic is interpreted, not compiled
+
+Function Main
+Begin
+
+	Print "Hello!"
+	Print "Welcome to Basic!!"
+	
+	Call FuncTest
+	
+	Exit
+
+End
+
+Function FuncTest
+Begin
+
+	Print "This is a function!"
+	
+	Return
+
+End
