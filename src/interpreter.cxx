@@ -55,10 +55,12 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			ret.func_name = second;
 		}
 	} else if (first=="Begin") {
+		//Used for functions
 		if (ret.func_name!="") {
 			ret.func = true;
 		}
 	} else if (first=="End") {
+		//Used for functions
 		if (ret.func) {
 			ret.func = false;
 			ret.func_name = "";
@@ -92,7 +94,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 					std::cout << "Error: You are asking for a non-existent function." << std::endl;
 				}
 			} else if (first=="Print") {
-				std::cout << second << std::endl;
+				print(second);
 			} else if (first=="Comment") {
 				//We do nothing here
 			} else if (first=="Clear") {
@@ -106,4 +108,27 @@ Ret Interpreter::run(std::string line, bool ignore) {
 	
 	last_ret = ret;
 	return ret;
+}
+
+void Interpreter::print(std::string entry) {
+	bool found_qt = false;
+	std::string result = "";
+	
+	if (entry[0]=='\"' && entry[entry.length()-1]=='\"') {
+		found_qt = true;
+	}
+	
+	for (int i = 0; i<entry.length(); i++) {
+		if (entry[i]=='\"') {
+			continue;
+		} else {
+			result+=entry[i];
+		}
+	}
+	
+	if (found_qt) {
+		std::cout << result << std::endl;
+	} else {
+		std::cout << "[DEBUG] var" << std::endl;
+	}
 }

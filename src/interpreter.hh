@@ -44,6 +44,7 @@ class Interpreter {
 public:
 	static void init();
 	static Ret run(std::string line, bool ignore);
+	static void print(std::string entry);
 private:
 	static Ret last_ret;
 	static std::vector<Func> functions;
