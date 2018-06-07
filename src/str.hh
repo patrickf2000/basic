@@ -30,3 +30,4 @@
 
 std::string str_first(std::string line);
 std::string str_second(std::string line);
+std::string trim(std::string line);

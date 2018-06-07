@@ -63,3 +63,21 @@ std::string str_second(std::string line) {
 	
 	return ret;
 }
+
+std::string trim(std::string line) {
+	std::string ret = "";
+	bool found = false;
+	
+	for (int i = 0; i<line.length(); i++) {
+		if (line[i]==' ' || line[i]=='\t') {
+			if (found) {
+				ret+=line[i];
+			}
+		} else {
+			found = true;
+			ret+=line[i];
+		}
+	}
+	
+	return ret;
+}

@@ -27,32 +27,64 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <fstream>
 
 #include "interpreter.hh"
+#include "str.hh"
 
 int main(int argc, char **argv) {
-	std::cout << "BASIC 1.0" << std::endl;
-	std::cout << "Welcome to the BASIC shell." << std::endl << std::endl;
-	
 	Interpreter::init();
 	
-	std::string func = "";
-	
-	while (true) {
-		std::cout << "BASIC> "+func;
-		
-		std::string line = "";
-		std::getline(std::cin,line);
-		
-		Ret r = Interpreter::run(line,false);
-		if (r.func==true) {
-			func = "["+r.func_name+"] ";
-		} else {
-			func = "";
+	if (argc>1) {
+		for (int i = 1; i<argc; i++) {
+			std::string current = std::string(argv[i]);
+			
+			//For speed, we will dynamically read and execute
+			std::ifstream reader(current);
+			if (reader.is_open()) {
+				std::string line = "";
+				
+				while (std::getline(reader,line)) {
+					std::string input = trim(line);
+					if (input.length()==0) {
+						continue;
+					}
+				
+					Ret r = Interpreter::run(input,false);
+					
+					if (r.continue_exe==false) {
+						break;
+					}
+				}
+				
+				reader.close();
+			} else {
+				std::cout << "Fatal error: Unknown file." << std::endl;
+				std::exit(1);
+			}
 		}
-		
-		if (r.continue_exe==false) {
-			break;
+	} else {
+		std::cout << "BASIC 1.0" << std::endl;
+		std::cout << "Welcome to the BASIC shell." << std::endl << std::endl;
+	
+		std::string func = "";
+	
+		while (true) {
+			std::cout << "BASIC> "+func;
+			
+			std::string line = "";
+			std::getline(std::cin,line);
+			
+			Ret r = Interpreter::run(line,false);
+			if (r.func==true) {
+				func = "["+r.func_name+"] ";
+			} else {
+				func = "";
+			}
+			
+			if (r.continue_exe==false) {
+				break;
+			}
 		}
 	}
 	

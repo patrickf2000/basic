@@ -5,21 +5,23 @@ Comment This form of basic is interpreted, not compiled
 
 Function Main
 Begin
-
 	Print "Hello!"
 	Print "Welcome to Basic!!"
 	
 	Call FuncTest
+	Call FuncTest2
 	
 	Exit
-
 End
 
 Function FuncTest
 Begin
-
-	Print "This is a function!"
-	
-	Return
-
+	Print "This is a function!"	
 End
+
+Function FuncTest2
+Begin
+	Print "Function test 2"
+End
+
+Call Main
