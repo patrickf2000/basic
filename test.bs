@@ -11,6 +11,8 @@ Begin
 	Call FuncTest
 	Call FuncTest2
 	
+	Call MathTest
+	
 	Exit
 End
 
@@ -22,6 +24,18 @@ End
 Function FuncTest2
 Begin
 	Print "Function test 2"
+End
+
+Function MathTest
+Begin
+	Var no1
+	Var no2
+	
+	Define no1 as 10
+	Define no2 as 20
+	
+	Print no1
+	Print no2
 End
 
 Call Main
