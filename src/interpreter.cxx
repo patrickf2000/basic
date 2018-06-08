@@ -42,6 +42,7 @@ void Interpreter::init() {
 	last_ret.func_name = "";
 }
 
+//The main interpreter
 Ret Interpreter::run(std::string line, bool ignore) {
 	Ret ret = last_ret;
 	
@@ -116,6 +117,14 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			//These are the math functions
 			} else if (first=="Add") {
 				math('+',second);
+			} else if (first=="Sub") {
+				math('-',second);
+			} else if (first=="Mp") {
+				math('*',second);
+			} else if (first=="Div") {
+				math('/',second);
+			} else if (first=="Remainder") {
+				math('%',second);
 			
 			//This sets the value of the memory to a variable
 			} else if (first=="Set") {
@@ -282,10 +291,19 @@ void Interpreter::math(char op, std::string line) {
 		int no1 = std::stoi(str1);
 		int no2 = std::stoi(str2);
 		
+		int sum = 0;
 		if (op=='+') {
-			int sum = no1+no2;
-			mem = std::to_string(sum);
+			sum = no1+no2;
+		} else if (op=='-') {
+			sum = no1-no2;
+		} else if (op=='*') {
+			sum = no1*no2;
+		} else if (op=='/') {
+			sum = no1/no2;
+		} else if (op=='%') {
+			sum = no1%no2;
 		}
+		mem = std::to_string(sum);
 	} catch (std::invalid_argument) {
 		if (op=='+') {
 			std::string n = str1+str2;
