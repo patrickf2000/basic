@@ -98,6 +98,8 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				}
 			} else if (first=="Print") {
 				print(second);
+			} else if (first=="Input") {
+				input(second);
 			} else if (first=="Comment") {
 				//We do nothing here
 			} else if (first=="Clear") {
@@ -214,6 +216,28 @@ void Interpreter::print(std::string entry) {
 				}
 				break;
 			}
+		}
+	}
+}
+
+//The logic for the input command
+void Interpreter::input(std::string line) {
+	std::cout << "> ";
+	std::string ln = "";
+	std::getline(std::cin,ln);
+		
+	if (line.length()==0) {
+		std::cout << ln << std::endl;
+		return;
+	}
+	
+	for (int i = 0; i<vars.size(); i++) {
+		if (vars.at(i).name==line) {
+			Var v;
+			v.name = line;
+			v.value = ln;
+			vars.push_back(v);
+			vars.erase(vars.begin()+i);
 		}
 	}
 }

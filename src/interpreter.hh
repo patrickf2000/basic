@@ -50,6 +50,7 @@ public:
 	static void init();
 	static Ret run(std::string line, bool ignore);
 	static void print(std::string entry);
+	static void input(std::string line);
 	static void def_var(std::string line);
 	static void math(char op, std::string line);
 	static void char_command(std::string line);
