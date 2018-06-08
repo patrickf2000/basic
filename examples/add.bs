@@ -1,0 +1,27 @@
+Comment add.bs
+Comment This is a simple calculator program.
+Comment It only does addition.
+
+Function Add
+Begin
+	Var no1
+	Var no2
+	Var no3
+	
+	Define no1 as 0
+	Define no2 as 0
+	
+	Print "Enter two numbers:"
+	Input no1
+	Input no2
+	
+	Add no1 and no2
+	Set no3
+	
+	Print "Result:"
+	Print no3
+End
+
+Clear
+Call Add
+Exit
