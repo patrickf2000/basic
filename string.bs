@@ -19,4 +19,21 @@ Begin
 	Print str
 End
 
+Function StrUtils
+Begin
+	Print ""
+	
+	Var len
+	Var str
+	
+	Define str as "Hello!"
+	
+	StrLen str
+	Set len
+	
+	Print "String length:"
+	Print len
+End
+
 Call StrAdd
+Call StrUtils

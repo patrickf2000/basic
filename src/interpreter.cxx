@@ -152,6 +152,24 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			//Sets the memory	
 			} else if (first=="Memset") {
 				mem = second;
+				
+			//These are our string functions
+			} else if (first=="StrLen") {
+				std::string val = second;
+				
+				for (int i = 0; i<vars.size(); i++) {
+					if (vars.at(i).name==second) {
+						val = vars.at(i).value;
+						break;
+					}
+				}
+				
+				if (val[0]!='\"' || val[val.length()-1]!='\"') {
+					std::cout << "Error: Invalid string." << std::endl;
+				} else {
+					int len = val.length()-2;
+					mem = std::to_string(len);
+				}
 			
 			//End with the unknown command message	
 			} else {
@@ -187,7 +205,11 @@ void Interpreter::print(std::string entry) {
 		for (int i = 0; i<vars.size(); i++) {
 			Var v = vars.at(i);
 			if (v.name==result) {
-				print(v.value);
+				if (v.value[0]=='\"' && v.value[v.value.length()-1]=='\"') {
+					print(v.value);
+				} else {
+					std::cout << v.value << std::endl;
+				}
 				break;
 			}
 		}
