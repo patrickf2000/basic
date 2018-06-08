@@ -1,0 +1,22 @@
+Comment string.bs
+Comment This tests adding strings
+
+Function StrAdd
+Begin
+	Var str1
+	Var str2
+	Var str
+	
+	Define str1 as "Hello, "
+	Define str2 as "how are you?"
+	
+	Print str1
+	Print str2
+	
+	Add str1 and str2
+	Set str
+	
+	Print str
+End
+
+Call StrAdd

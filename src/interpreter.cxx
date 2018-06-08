@@ -187,7 +187,7 @@ void Interpreter::print(std::string entry) {
 		for (int i = 0; i<vars.size(); i++) {
 			Var v = vars.at(i);
 			if (v.name==result) {
-				std::cout << v.value << std::endl;
+				print(v.value);
 				break;
 			}
 		}
@@ -204,6 +204,10 @@ void Interpreter::def_var(std::string line) {
 	
 	for (int i = 0; i<line.length(); i++) {
 		if (line[i]==' ') {
+			if (fs1 && fs2) {
+				val+=line[i];
+			}
+			
 			if (!fs1) {
 				fs1 = true;
 			} else {
@@ -306,8 +310,23 @@ void Interpreter::math(char op, std::string line) {
 		mem = std::to_string(sum);
 	} catch (std::invalid_argument) {
 		if (op=='+') {
-			std::string n = str1+str2;
-			mem = n;
+			if (str1[0]!='\"' || str1[str1.length()-1]!='\"' || 
+				str2[0]!='\"' || str2[str2.length()-1]!='\"') {
+				std::cout << "Error: You can only add numbers or strings." << std::endl;
+				return;
+			}
+			
+			std::string final_s = "";
+			
+			for (int i = 0; i<str1.length()-1; i++) {
+				final_s+=str1[i];
+			}
+			
+			for (int i = 1; i<str2.length(); i++) {
+				final_s+=str2[i];
+			}
+			
+			mem = final_s;
 		} else {
 			std::cout << "Error: Invalid arguments." << std::endl;
 		}		
