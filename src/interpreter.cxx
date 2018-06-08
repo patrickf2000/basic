@@ -34,6 +34,7 @@ Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
 std::vector<Var> Interpreter::vars;
 Func Interpreter::currentF;
+std::string Interpreter::mem = "";
 
 void Interpreter::init() {
 	last_ret.func = false;
@@ -111,6 +112,37 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				vars.push_back(v);
 			} else if (first=="Define") {
 				def_var(second);
+				
+			//These are the math functions
+			} else if (first=="Add") {
+				math('+',second);
+			
+			//This sets the value of the memory to a variable
+			} else if (first=="Set") {
+				bool found = false;
+			
+				for (int i = 0; i<vars.size(); i++) {
+					if (vars.at(i).name==second) {
+						found = true;
+						
+						Var v;
+						v.name = second;
+						v.value = mem;
+						vars.push_back(v);
+						vars.erase(vars.begin()+i);
+					}
+				}
+				
+				if (found) {
+					mem = "";
+				} else {
+					std::cout << "Error: Unknown variable." << std::endl;
+					std::cout << "The memory is still retained." << std::endl;
+				}
+			
+			//Sets the memory	
+			} else if (first=="Memset") {
+				mem = second;
 			
 			//End with the unknown command message	
 			} else {
@@ -199,5 +231,67 @@ void Interpreter::def_var(std::string line) {
 	
 	if (!fv) {
 		std::cout << "Error: Unknown variable. Please define it first." << std::endl;
+	}
+}
+
+//The logic for our math solver
+void Interpreter::math(char op, std::string line) {
+	//First, break up the string
+	std::string str1 = "";
+	std::string str2 = "";
+	std::string middle = "";
+	bool fs1 = false;
+	bool fs2 = false;
+	
+	for (int i = 0; i<line.length(); i++) {
+		if (line[i]==' ') {
+			if (!fs1) {
+				fs1 = true;
+			} else {
+				fs2 = true;
+			}
+		} else {
+			if (fs1 && fs2) {
+				str2+=line[i];
+			} else if (fs1 && !fs2) {
+				middle+=line[i];
+			} else {
+				str1+=line[i];
+			}
+		}
+	}
+	
+	if (middle!="and") {
+		std::cout << "Error: Unknown keyword." << std::endl;
+		return;
+	}
+	
+	//Now, see if either of the parts are variables
+	for (int i = 0; i<vars.size(); i++) {
+		Var v = vars.at(i);
+		if (v.name==str1) {
+			str1 = v.value;
+		}
+		if (v.name==str2) {
+			str2 = v.value;
+		}
+	}
+	
+	//Convert and add
+	try {
+		int no1 = std::stoi(str1);
+		int no2 = std::stoi(str2);
+		
+		if (op=='+') {
+			int sum = no1+no2;
+			mem = std::to_string(sum);
+		}
+	} catch (std::invalid_argument) {
+		if (op=='+') {
+			std::string n = str1+str2;
+			mem = n;
+		} else {
+			std::cout << "Error: Invalid arguments." << std::endl;
+		}		
 	}
 }

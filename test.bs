@@ -30,12 +30,15 @@ Function MathTest
 Begin
 	Var no1
 	Var no2
+	Var no3
 	
 	Define no1 as 10
 	Define no2 as 20
 	
-	Print no1
-	Print no2
+	Add no1 and no2
+	Set no3
+	
+	Print no3
 End
 
 Call Main

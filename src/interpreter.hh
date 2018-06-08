@@ -51,9 +51,11 @@ public:
 	static Ret run(std::string line, bool ignore);
 	static void print(std::string entry);
 	static void def_var(std::string line);
+	static void math(char op, std::string line);
 private:
 	static Ret last_ret;
 	static std::vector<Func> functions;
 	static std::vector<Var> vars;
 	static Func currentF;
+	static std::string mem;
 };
