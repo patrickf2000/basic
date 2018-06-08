@@ -32,6 +32,7 @@
 
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
+std::vector<Var> Interpreter::vars;
 Func Interpreter::currentF;
 
 void Interpreter::init() {
@@ -100,6 +101,18 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			} else if (first=="Clear") {
 				std::cout << "\033[2J" << std::endl;
 				std::cout << "\033[1;1H";
+				
+			//Defining a var works this way:
+			// 1) Var v-> This creates the variable.
+			// 2) Define v as 10-> Sets 10 as the value of v
+			} else if (first=="Var") {
+				Var v;
+				v.name = second;
+				vars.push_back(v);
+			} else if (first=="Define") {
+				def_var(second);
+			
+			//End with the unknown command message	
 			} else {
 				std::cout << "Error: Unknown command." << std::endl;
 			}
@@ -110,6 +123,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 	return ret;
 }
 
+//The logic for our Print command
 void Interpreter::print(std::string entry) {
 	bool found_qt = false;
 	std::string result = "";
@@ -129,6 +143,61 @@ void Interpreter::print(std::string entry) {
 	if (found_qt) {
 		std::cout << result << std::endl;
 	} else {
-		std::cout << "[DEBUG] var" << std::endl;
+		for (int i = 0; i<vars.size(); i++) {
+			Var v = vars.at(i);
+			if (v.name==result) {
+				std::cout << v.value << std::endl;
+				break;
+			}
+		}
+	}
+}
+
+//The logic for our variable definitions
+void Interpreter::def_var(std::string line) {
+	std::string name = "";
+	std::string middle = "";
+	std::string val = "";
+	bool fs1 = false;
+	bool fs2 = false;
+	
+	for (int i = 0; i<line.length(); i++) {
+		if (line[i]==' ') {
+			if (!fs1) {
+				fs1 = true;
+			} else {
+				fs2 = true;
+			}
+		} else {
+			if (fs1 && fs2) {
+				val+=line[i];
+			} else if (fs1 && !fs2) {
+				middle+=line[i];
+			} else {
+				name+=line[i];
+			}
+		}
+	}
+	
+	if (middle!="as") {
+		std::cout << "Error: Unknown keyword." << std::endl;
+		return;
+	}
+	
+	bool fv = false;
+	for (int i = 0; i<vars.size(); i++) {
+		if (vars.at(i).name==name) {
+			fv = true;
+			
+			Var v;
+			v.name = name;
+			v.value = val;
+			vars.push_back(v);
+			vars.erase(vars.begin()+i);
+		}
+	}
+	
+	if (!fv) {
+		std::cout << "Error: Unknown variable. Please define it first." << std::endl;
 	}
 }

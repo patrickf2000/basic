@@ -40,13 +40,20 @@ struct Func {
 	std::vector<std::string> content;
 };
 
+struct Var {
+	std::string name;
+	std::string value;
+};
+
 class Interpreter {
 public:
 	static void init();
 	static Ret run(std::string line, bool ignore);
 	static void print(std::string entry);
+	static void def_var(std::string line);
 private:
 	static Ret last_ret;
 	static std::vector<Func> functions;
+	static std::vector<Var> vars;
 	static Func currentF;
 };
