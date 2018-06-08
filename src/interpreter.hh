@@ -52,6 +52,7 @@ public:
 	static void print(std::string entry);
 	static void def_var(std::string line);
 	static void math(char op, std::string line);
+	static void char_command(std::string line);
 private:
 	static Ret last_ret;
 	static std::vector<Func> functions;

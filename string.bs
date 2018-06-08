@@ -21,6 +21,7 @@ End
 
 Function StrUtils
 Begin
+	Comment the StrLen function
 	Print ""
 	
 	Var len
@@ -33,6 +34,22 @@ Begin
 	
 	Print "String length:"
 	Print len
+	
+	Comment ========================
+	Comment The Char command
+	Print ""
+	
+	Var char
+	Var loco
+	
+	Char 1 in str
+	Set char
+	
+	Char e in str
+	Set loco
+	
+	Print char
+	Print loco
 End
 
 Call StrAdd

@@ -170,6 +170,8 @@ Ret Interpreter::run(std::string line, bool ignore) {
 					int len = val.length()-2;
 					mem = std::to_string(len);
 				}
+			} else if (first=="Char") {
+				char_command(second);
 			
 			//End with the unknown command message	
 			} else {
@@ -352,5 +354,76 @@ void Interpreter::math(char op, std::string line) {
 		} else {
 			std::cout << "Error: Invalid arguments." << std::endl;
 		}		
+	}
+}
+
+//The Char command
+//The char command can do the following:
+//Char <int> in <string>	This returns the character at the specified location
+//Char <string> in <string>	This returns the location of a specified character
+void Interpreter::char_command(std::string line) {
+	//First, break up the string
+	std::string str1 = "";
+	std::string str2 = "";
+	std::string middle = "";
+	bool fs1 = false;
+	bool fs2 = false;
+	
+	for (int i = 0; i<line.length(); i++) {
+		if (line[i]==' ') {
+			if (!fs1) {
+				fs1 = true;
+			} else {
+				fs2 = true;
+			}
+		} else {
+			if (fs1 && fs2) {
+				str2+=line[i];
+			} else if (fs1 && !fs2) {
+				middle+=line[i];
+			} else {
+				str1+=line[i];
+			}
+		}
+	}
+	
+	if (middle!="in") {
+		std::cout << "Error: Unknown keyword." << std::endl;
+		return;
+	}
+	
+	//See if str2 is a variable
+	for (int i = 0; i<vars.size(); i++) {
+		if (vars.at(i).name==str2) {
+			str2 = vars.at(i).value;
+			break;
+		}
+	}
+	
+	//Now, we have to figure out what kind of operation we are doing
+	try {
+		int loco = std::stoi(str1);
+		
+		if (loco>str2.length()-1) {
+			std::cout << "Error: The position exceeds the length of the string." << std::endl;
+			return;
+		}
+		
+		char c = str2[loco];
+		std::string ln = "";
+		ln+=c;
+		mem=ln;
+	} catch (std::invalid_argument) {
+		int loco = -1;
+		char c = str1[0];
+		
+		for (int i = 1; i<str2.length()-1; i++) {
+			if (str2[i]==c) {
+				loco = i;
+				break;
+			}
+		}
+		
+		mem = std::to_string(loco);
 	}
 }
