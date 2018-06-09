@@ -3,7 +3,8 @@
 This is a simple BASIC interpreter. Its still in its early stages, so its fairly limited. You can use this program from the shell or via the command line with a source file. Below is a list of commands. A language definition will come later
 
 #### Commands
-Print-> Print to the console   
+Print-> Print to the console (no new line)   
+PrintLine-> Print to the console (with new line)   
 Exit-> Exit the program   
 Function (name)-> Create a function   
 Begin-> Begin a function body   
@@ -19,3 +20,21 @@ Div-> Divide two numbers
 Remainder-> Get the remainder of two numbers   
 Memset-> Set the local memory   
 Set-> Set a variable with the contents of local memory   
+StrLen-> Get the length of a string   
+Char-> Get the character at a specific location, or the location of a specific character   
+
+#### Conditionals
+Conditionals have the following syntax:   
+
+If (var) (Operator) (var)   
+... Body   
+Else (var) (operator) (var)   
+... Body   
+Else   
+... Body   
+Stop   
+
+Below is a list of valid operators:   
+1. Greater   
+2. Less   
+3. Equals   
