@@ -10,19 +10,19 @@ Begin
 	Define str1 as "Hello, "
 	Define str2 as "how are you?"
 	
-	Print str1
-	Print str2
+	PrintLine str1
+	PrintLine str2
 	
 	Add str1 and str2
 	Set str
 	
-	Print str
+	PrintLine str
 End
 
 Function StrUtils
 Begin
 	Comment the StrLen function
-	Print ""
+	PrintLine ""
 	
 	Var len
 	Var str
@@ -32,12 +32,12 @@ Begin
 	StrLen str
 	Set len
 	
-	Print "String length:"
-	Print len
+	PrintLine "String length:"
+	PrintLine len
 	
 	Comment ========================
 	Comment The Char command
-	Print ""
+	PrintLine ""
 	
 	Var char
 	Var loco
@@ -48,8 +48,8 @@ Begin
 	Char e in str
 	Set loco
 	
-	Print char
-	Print loco
+	PrintLine char
+	PrintLine loco
 End
 
 Call StrAdd

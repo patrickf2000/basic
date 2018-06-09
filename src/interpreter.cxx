@@ -133,7 +133,9 @@ Ret Interpreter::run(std::string line, bool ignore) {
 					std::cout << "Error: You are asking for a non-existent function." << std::endl;
 				}
 			} else if (first=="Print") {
-				print(second);
+				print(second,false);
+			} else if (first=="PrintLine") {
+				print(second,true);
 			} else if (first=="Input") {
 				input(second);
 			} else if (first=="Comment") {
@@ -234,7 +236,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 }
 
 //The logic for our Print command
-void Interpreter::print(std::string entry) {
+void Interpreter::print(std::string entry, bool nl) {
 	bool found_qt = false;
 	std::string result = "";
 	
@@ -251,15 +253,21 @@ void Interpreter::print(std::string entry) {
 	}
 	
 	if (found_qt) {
-		std::cout << result << std::endl;
+		std::cout << result;
+		if (nl) {
+			std::cout << std::endl;
+		}
 	} else {
 		for (int i = 0; i<vars.size(); i++) {
 			Var v = vars.at(i);
 			if (v.name==result) {
 				if (v.value[0]=='\"' && v.value[v.value.length()-1]=='\"') {
-					print(v.value);
+					print(v.value,nl);
 				} else {
-					std::cout << v.value << std::endl;
+					std::cout << v.value;
+					if (nl) {
+						std::cout << std::endl;
+					}
 				}
 				break;
 			}
@@ -269,7 +277,6 @@ void Interpreter::print(std::string entry) {
 
 //The logic for the input command
 void Interpreter::input(std::string line) {
-	std::cout << "> ";
 	std::string ln = "";
 	std::getline(std::cin,ln);
 		

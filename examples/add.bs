@@ -11,15 +11,15 @@ Begin
 	Define no1 as 0
 	Define no2 as 0
 	
-	Print "Enter two numbers:"
+	PrintLine "Enter two numbers:"
 	Input no1
 	Input no2
 	
 	Add no1 and no2
 	Set no3
 	
-	Print "Result:"
-	Print no3
+	PrintLine "Result:"
+	PrintLine no3
 End
 
 Clear

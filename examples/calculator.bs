@@ -10,27 +10,27 @@ Define no2 as 0
 
 Function GetInput
 Begin
-	Print "Enter your first number:"
+	PrintLine "Enter your first number:"
 	Input no1
 	
-	Print "Enter your second number:"
+	PrintLine "Enter your second number:"
 	Input no2
 	
-	Print ""
+	PrintLine ""
 End
 
 Function Dsp
 Begin
 	Set no3
-	Print "Result:"
-	Print no3
+	PrintLine "Result:"
+	PrintLine no3
 End
 
 Function Add
 Begin
 	Clear
-	Print "Additon"
-	Print ""
+	PrintLine "Additon"
+	PrintLine ""
 	
 	Call GetInput
 	
@@ -41,8 +41,8 @@ End
 Function Sub
 Begin
 	Clear
-	Print "Subtraction"
-	Print ""
+	PrintLine "Subtraction"
+	PrintLine ""
 	
 	Call GetInput
 	
@@ -53,8 +53,8 @@ End
 Function Mp
 Begin
 	Clear
-	Print "Multiplication"
-	Print ""
+	PrintLine "Multiplication"
+	PrintLine ""
 	
 	Call GetInput
 	
@@ -65,8 +65,8 @@ End
 Function Div
 Begin
 	Clear
-	Print "Division"
-	Print ""
+	PrintLine "Division"
+	PrintLine ""
 	
 	Call GetInput
 	
@@ -77,8 +77,8 @@ End
 Function Mod
 Begin
 	Clear
-	Print "Remainder"
-	Print ""
+	PrintLine "Remainder"
+	PrintLine ""
 	
 	Call GetInput
 	
@@ -89,14 +89,14 @@ End
 Function Menu
 Begin
 	Clear
-	Print "Welcome to the BASIC Calculator!"
-	Print ""
-	Print "Press 1 to add."
-	Print "Press 2 to subtract."
-	Print "Press 3 to multiply."
-	Print "Press 4 to divide."
-	Print "Press 5 to get remainders."
-	Print "Press 6 to exit."
+	PrintLine "Welcome to the BASIC Calculator!"
+	PrintLine ""
+	PrintLine "Press 1 to add."
+	PrintLine "Press 2 to subtract."
+	PrintLine "Press 3 to multiply."
+	PrintLine "Press 4 to divide."
+	PrintLine "Press 5 to get remainders."
+	PrintLine "Press 6 to exit."
 	
 	Var in
 	Define in as 6
@@ -116,7 +116,7 @@ Begin
 	Else in Equals 6
 		Exit
 	Else
-		Print "Unknown input!"
+		PrintLine "Unknown input!"
 	Stop
 End
 

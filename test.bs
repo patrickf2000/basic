@@ -5,8 +5,8 @@ Comment This form of basic is interpreted, not compiled
 
 Function Main
 Begin
-	Print "Hello!"
-	Print "Welcome to Basic!!"
+	PrintLine "Hello!"
+	PrintLine "Welcome to Basic!!"
 	
 	Call FuncTest
 	Call FuncTest2
@@ -18,12 +18,12 @@ End
 
 Function FuncTest
 Begin
-	Print "This is a function!"	
+	PrintLine "This is a function!"	
 End
 
 Function FuncTest2
 Begin
-	Print "Function test 2"
+	PrintLine "Function test 2"
 End
 
 Function MathTest
@@ -38,7 +38,7 @@ Begin
 	Add no1 and no2
 	Set no3
 	
-	Print no3
+	PrintLine no3
 End
 
 Call Main
