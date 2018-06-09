@@ -75,36 +75,38 @@ Ret Interpreter::run(std::string line, bool ignore) {
 		}
 	} else if (first=="Stop" && !ret.func) {
 		//Currently used only for conditionals
-		in_condition = false;
-		
-		std::vector<Condition> conditions;
-		Condition current;
-		
-		for (int i = 0; i<condition_bd.size(); i++) {
-			std::string ln = condition_bd.at(i);
+		if (in_condition) {
+			in_condition = false;
 			
-			std::string f = str_first(ln);
-			if (f=="If") {
-				current.cmp = str_second(ln);
-			} else if (f=="Else") {
-				conditions.push_back(current);
-				current.body.clear();
-				current.cmp = str_second(ln);
-			} else {
-				current.body.push_back(ln);
-			}
-		}
-		conditions.push_back(current);
-		current.body.clear();
-		
-		for (int i = 0; i<conditions.size(); i++) {
-			if (eval_condition(conditions.at(i))) {
-				break;
-			}
-		}
+			std::vector<Condition> conditions;
+			Condition current;
 			
-		conditions.clear();	
-		condition_bd.clear();
+			for (int i = 0; i<condition_bd.size(); i++) {
+				std::string ln = condition_bd.at(i);
+				
+				std::string f = str_first(ln);
+				if (f=="If") {
+					current.cmp = str_second(ln);
+				} else if (f=="Else") {
+					conditions.push_back(current);
+					current.body.clear();
+					current.cmp = str_second(ln);
+				} else {
+					current.body.push_back(ln);
+				}
+			}
+			conditions.push_back(current);
+			current.body.clear();
+			
+			for (int i = 0; i<conditions.size(); i++) {
+				if (eval_condition(conditions.at(i))) {
+					break;
+				}
+			}
+				
+			conditions.clear();	
+			condition_bd.clear();
+		}
 	} else {
 		if (ret.func && !ignore) {
 			currentF.content.push_back(line);
