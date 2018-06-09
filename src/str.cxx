@@ -81,3 +81,40 @@ std::string trim(std::string line) {
 	
 	return ret;
 }
+
+TriStr split_three(std::string line) {
+	TriStr ret;
+	
+	std::string str1 = "";
+	std::string str2 = "";
+	std::string middle = "";
+	bool fs1 = false;
+	bool fs2 = false;
+	
+	for (int i = 0; i<line.length(); i++) {
+		if (line[i]==' ') {
+			if (fs1 && fs2) {
+				str2+=line[i];
+			}
+			if (!fs1) {
+				fs1 = true;
+			} else {
+				fs2 = true;
+			}
+		} else {
+			if (fs1 && fs2) {
+				str2+=line[i];
+			} else if (fs1 && !fs2) {
+				middle+=line[i];
+			} else {
+				str1+=line[i];
+			}
+		}
+	}
+	
+	ret.part1 = str1;
+	ret.part2 = middle;
+	ret.part3 = str2;
+	
+	return ret;
+}

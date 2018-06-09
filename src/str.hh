@@ -31,3 +31,11 @@
 std::string str_first(std::string line);
 std::string str_second(std::string line);
 std::string trim(std::string line);
+
+struct TriStr {
+	std::string part1;
+	std::string part2;
+	std::string part3;
+};
+
+TriStr split_three(std::string line);

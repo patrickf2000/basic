@@ -291,33 +291,10 @@ void Interpreter::input(std::string line) {
 
 //The logic for our variable definitions
 void Interpreter::def_var(std::string line) {
-	std::string name = "";
-	std::string middle = "";
-	std::string val = "";
-	bool fs1 = false;
-	bool fs2 = false;
-	
-	for (int i = 0; i<line.length(); i++) {
-		if (line[i]==' ') {
-			if (fs1 && fs2) {
-				val+=line[i];
-			}
-			
-			if (!fs1) {
-				fs1 = true;
-			} else {
-				fs2 = true;
-			}
-		} else {
-			if (fs1 && fs2) {
-				val+=line[i];
-			} else if (fs1 && !fs2) {
-				middle+=line[i];
-			} else {
-				name+=line[i];
-			}
-		}
-	}
+	TriStr strs = split_three(line);
+	std::string name = strs.part1;
+	std::string middle = strs.part2;
+	std::string val = strs.part3;
 	
 	if (middle!="as") {
 		std::cout << "Error: Unknown keyword." << std::endl;
@@ -345,29 +322,10 @@ void Interpreter::def_var(std::string line) {
 //The logic for our math solver
 void Interpreter::math(char op, std::string line) {
 	//First, break up the string
-	std::string str1 = "";
-	std::string str2 = "";
-	std::string middle = "";
-	bool fs1 = false;
-	bool fs2 = false;
-	
-	for (int i = 0; i<line.length(); i++) {
-		if (line[i]==' ') {
-			if (!fs1) {
-				fs1 = true;
-			} else {
-				fs2 = true;
-			}
-		} else {
-			if (fs1 && fs2) {
-				str2+=line[i];
-			} else if (fs1 && !fs2) {
-				middle+=line[i];
-			} else {
-				str1+=line[i];
-			}
-		}
-	}
+	TriStr strs = split_three(line);
+	std::string str1 = strs.part1;
+	std::string middle = strs.part2;
+	std::string str2 = strs.part3;
 	
 	if (middle!="and") {
 		std::cout << "Error: Unknown keyword." << std::endl;
@@ -434,29 +392,10 @@ void Interpreter::math(char op, std::string line) {
 //Char <string> in <string>	This returns the location of a specified character
 void Interpreter::char_command(std::string line) {
 	//First, break up the string
-	std::string str1 = "";
-	std::string str2 = "";
-	std::string middle = "";
-	bool fs1 = false;
-	bool fs2 = false;
-	
-	for (int i = 0; i<line.length(); i++) {
-		if (line[i]==' ') {
-			if (!fs1) {
-				fs1 = true;
-			} else {
-				fs2 = true;
-			}
-		} else {
-			if (fs1 && fs2) {
-				str2+=line[i];
-			} else if (fs1 && !fs2) {
-				middle+=line[i];
-			} else {
-				str1+=line[i];
-			}
-		}
-	}
+	TriStr strs = split_three(line);
+	std::string str1 = strs.part1;
+	std::string middle = strs.part2;
+	std::string str2 = strs.part3;
 	
 	if (middle!="in") {
 		std::cout << "Error: Unknown keyword." << std::endl;
@@ -513,29 +452,10 @@ bool Interpreter::eval_condition(Condition c) {
 	}
 	
 	//First, break up the string
-	std::string str1 = "";
-	std::string str2 = "";
-	std::string middle = "";
-	bool fs1 = false;
-	bool fs2 = false;
-	
-	for (int i = 0; i<cmp.length(); i++) {
-		if (cmp[i]==' ') {
-			if (!fs1) {
-				fs1 = true;
-			} else {
-				fs2 = true;
-			}
-		} else {
-			if (fs1 && fs2) {
-				str2+=cmp[i];
-			} else if (fs1 && !fs2) {
-				middle+=cmp[i];
-			} else {
-				str1+=cmp[i];
-			}
-		}
-	}
+	TriStr strs = split_three(cmp);
+	std::string str1 = strs.part1;
+	std::string middle = strs.part2;
+	std::string str2 = strs.part3;
 	
 	//See if either str1 or str2 is a variable
 	for (int i = 0; i<vars.size(); i++) {
