@@ -45,6 +45,11 @@ struct Var {
 	std::string value;
 };
 
+struct Condition {
+	std::string cmp;
+	std::vector<std::string> body;
+};
+
 class Interpreter {
 public:
 	static void init();
@@ -54,10 +59,13 @@ public:
 	static void def_var(std::string line);
 	static void math(char op, std::string line);
 	static void char_command(std::string line);
+	static bool eval_condition(Condition c);
 private:
 	static Ret last_ret;
 	static std::vector<Func> functions;
 	static std::vector<Var> vars;
+	static std::vector<std::string> condition_bd;
+	static bool in_condition;
 	static Func currentF;
 	static std::string mem;
 };

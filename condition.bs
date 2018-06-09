@@ -1,0 +1,35 @@
+Comment condition.bs
+Comment This tests conditionals
+
+Function CompareNumbers
+Begin
+	Var no1
+	Var no2
+	
+	Define no1 as 0
+	Define no2 as 0
+	
+	Print "Enter two numbers:"
+	Input no1
+	Input no2
+	
+	Print "Is no1 greater than no2?"
+	If no1 Greater no2
+		Print "no1 is greater"
+	Else no1 Less no2
+		Print "no1 is lesser"
+	Else
+		Print "no1 and no2 might be equal"
+	Stop
+	
+	Print ""
+	Print "Are the numbers equal?"
+	
+	If no1 Equals no2
+		Print "The numbers are equal."
+	Else
+		Print "The numbers are not equal"
+	Stop
+End
+
+Call CompareNumbers

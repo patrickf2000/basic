@@ -33,6 +33,8 @@
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
 std::vector<Var> Interpreter::vars;
+std::vector<std::string> Interpreter::condition_bd;
+bool Interpreter::in_condition;
 Func Interpreter::currentF;
 std::string Interpreter::mem = "";
 
@@ -71,9 +73,43 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			currentF.content.clear();
 			currentF.name = "";
 		}
+	} else if (first=="Stop" && !ret.func) {
+		//Currently used only for conditionals
+		in_condition = false;
+		
+		std::vector<Condition> conditions;
+		Condition current;
+		
+		for (int i = 0; i<condition_bd.size(); i++) {
+			std::string ln = condition_bd.at(i);
+			
+			std::string f = str_first(ln);
+			if (f=="If") {
+				current.cmp = str_second(ln);
+			} else if (f=="Else") {
+				conditions.push_back(current);
+				current.body.clear();
+				current.cmp = str_second(ln);
+			} else {
+				current.body.push_back(ln);
+			}
+		}
+		conditions.push_back(current);
+		current.body.clear();
+		
+		for (int i = 0; i<conditions.size(); i++) {
+			if (eval_condition(conditions.at(i))) {
+				break;
+			}
+		}
+			
+		conditions.clear();	
+		condition_bd.clear();
 	} else {
 		if (ret.func && !ignore) {
 			currentF.content.push_back(line);
+		} else if (in_condition) {
+			condition_bd.push_back(line);
 		} else {
 			if (first=="Exit") {
 				std::exit(0);
@@ -174,6 +210,17 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				}
 			} else if (first=="Char") {
 				char_command(second);
+				
+			//Our conditionals
+			} else if (first=="If") {
+				in_condition = true;
+				condition_bd.push_back(line);
+			} else if (first=="Else") {
+				if (in_condition) {
+					condition_bd.push_back(line);
+				} else {
+					std::cout << "Error: You cannot have an Else statement without an opening If statement." << std::endl;
+				}
 			
 			//End with the unknown command message	
 			} else {
@@ -450,4 +497,90 @@ void Interpreter::char_command(std::string line) {
 		
 		mem = std::to_string(loco);
 	}
+}
+
+//The logic for evaluating conditionals
+bool Interpreter::eval_condition(Condition c) {
+	std::string cmp = c.cmp;
+	
+	//If cmp length is 0, then we are at a last-resort else
+	//Simply execute the body, and return
+	if (cmp.length()==0) {
+		for (int i = 0; i<c.body.size(); i++) {
+			run(c.body.at(i),true);
+		}
+		return true;
+	}
+	
+	//First, break up the string
+	std::string str1 = "";
+	std::string str2 = "";
+	std::string middle = "";
+	bool fs1 = false;
+	bool fs2 = false;
+	
+	for (int i = 0; i<cmp.length(); i++) {
+		if (cmp[i]==' ') {
+			if (!fs1) {
+				fs1 = true;
+			} else {
+				fs2 = true;
+			}
+		} else {
+			if (fs1 && fs2) {
+				str2+=cmp[i];
+			} else if (fs1 && !fs2) {
+				middle+=cmp[i];
+			} else {
+				str1+=cmp[i];
+			}
+		}
+	}
+	
+	//See if either str1 or str2 is a variable
+	for (int i = 0; i<vars.size(); i++) {
+		if (vars.at(i).name==str1) {
+			str1 = vars.at(i).value;
+		}
+		if (vars.at(i).name==str2) {
+			str2 = vars.at(i).value;
+		}
+	}
+	
+	//Try to convert to numbers, then compare
+	bool r = false;
+	
+	try {
+		int no1 = std::stoi(str1);
+		int no2 = std::stoi(str2);
+		
+		if (middle=="Greater") {
+			if (no1>no2) {
+				r = true;
+			}
+		} else if (middle=="Less") {
+			if (no1<no2) {
+				r = true;
+			}
+		} else if (middle=="Equals") {
+			if (no1==no2) {
+				r = true;
+			}
+		} else {
+			std::cout << "Error: Invalid comparison." << std::endl;
+		}
+	} catch (std::invalid_argument) {
+		//TODO: Implement
+	}
+	
+	if (!r) {
+		return false;
+	}
+	
+	//Run comparison body
+	for (int i = 0; i<c.body.size(); i++) {
+		run(c.body.at(i),true);
+	}
+	
+	return true;
 }
