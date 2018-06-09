@@ -32,4 +32,26 @@ Begin
 	Stop
 End
 
+Function CmpStr
+Begin
+	Print ""
+	
+	Var str1
+	Var str2
+	
+	Define str1 as "Hello!"
+	Define str2 as "Hello!"
+	
+	Print "Enter two strings:"
+	Input str1
+	Input str2
+	
+	If str1 Equals str2
+		Print "The strings are equal."
+	Else
+		Print "The strings are not equal."
+	Stop
+End
+
 Call CompareNumbers
+Call CmpStr

@@ -570,7 +570,14 @@ bool Interpreter::eval_condition(Condition c) {
 			std::cout << "Error: Invalid comparison." << std::endl;
 		}
 	} catch (std::invalid_argument) {
-		//TODO: Implement
+		if (middle=="Equals") {
+			if (str1==str2) {
+				r = true;
+			}
+		} else {
+			std::cout << "Error: You cannot compare strings with Greater or Less." << std::endl;
+			std::cout << "Or, you may have an invalid operator." << std::endl;
+		}
 	}
 	
 	if (!r) {
