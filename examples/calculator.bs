@@ -1,0 +1,123 @@
+Comment calculator.bs
+Comment A simple calculator program
+
+Var no1
+Var no2
+Var no3
+
+Define no1 as 0
+Define no2 as 0
+
+Function GetInput
+Begin
+	Print "Enter your first number:"
+	Input no1
+	
+	Print "Enter your second number:"
+	Input no2
+	
+	Print ""
+End
+
+Function Dsp
+Begin
+	Set no3
+	Print "Result:"
+	Print no3
+End
+
+Function Add
+Begin
+	Clear
+	Print "Additon"
+	Print ""
+	
+	Call GetInput
+	
+	Add no1 and no2
+	Call Dsp
+End
+
+Function Sub
+Begin
+	Clear
+	Print "Subtraction"
+	Print ""
+	
+	Call GetInput
+	
+	Sub no1 and no2
+	Call Dsp
+End
+
+Function Mp
+Begin
+	Clear
+	Print "Multiplication"
+	Print ""
+	
+	Call GetInput
+	
+	Mp no1 and no2
+	Call Dsp
+End
+
+Function Div
+Begin
+	Clear
+	Print "Division"
+	Print ""
+	
+	Call GetInput
+	
+	Div no1 and no2
+	Call Dsp
+End
+
+Function Mod
+Begin
+	Clear
+	Print "Remainder"
+	Print ""
+	
+	Call GetInput
+	
+	Remainder no1 and no2
+	Call Dsp
+End
+
+Function Menu
+Begin
+	Clear
+	Print "Welcome to the BASIC Calculator!"
+	Print ""
+	Print "Press 1 to add."
+	Print "Press 2 to subtract."
+	Print "Press 3 to multiply."
+	Print "Press 4 to divide."
+	Print "Press 5 to get remainders."
+	Print "Press 6 to exit."
+	
+	Var in
+	Define in as 6
+	
+	Input in
+	
+	If in Equals 1
+		Call Add
+	Else in Equals 2
+		Call Sub
+	Else in Equals 3
+		Call Mp
+	Else in Equals 4
+		Call Div
+	Else in Equals 5
+		Call Mod
+	Else in Equals 6
+		Exit
+	Else
+		Print "Unknown input!"
+	Stop
+End
+
+Call Menu
