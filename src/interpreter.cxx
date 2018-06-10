@@ -211,6 +211,12 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			//Sets the memory	
 			} else if (first=="Memset") {
 				mem = second;
+				for (int i = 0; i<vars.size(); i++) {
+					if (vars.at(i).name==second) {
+						mem = vars.at(i).value;
+						break;
+					}
+				}
 				
 			//These are our string functions
 			} else if (first=="StrLen") {
@@ -450,6 +456,17 @@ void Interpreter::char_command(std::string line) {
 	if (middle!="in") {
 		std::cout << "Error: Unknown keyword." << std::endl;
 		return;
+	}
+	
+	//If str1 is greater than 1 (length), then we might have a variable
+	//If so, check
+	if (str1.length()>1) {
+		for (int i = 0; i<vars.size(); i++) {
+			if (vars.at(i).name==str1) {
+				str1 = vars.at(i).value;
+				break;
+			}
+		}
 	}
 	
 	//See if str2 is a variable

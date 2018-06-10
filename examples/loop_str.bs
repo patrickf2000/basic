@@ -1,0 +1,27 @@
+Comment loop_str.bs
+Comment An example of how you can break down a string in a loop
+
+Var str
+Define str as "Hello!"
+
+PrintLine "Below is our string:"
+PrintLine str
+PrintLine ""
+
+Var len
+StrLen str
+Set len
+
+Var index
+Memset len
+Set index
+
+Var c
+
+Loop len
+	Char index in str
+	Set c
+	PrintLine c
+	Sub index and 1
+	Set index
+Stop
