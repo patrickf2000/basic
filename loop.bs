@@ -1,0 +1,11 @@
+Comment loop.bs
+Comment This is the test/example file for the simple loop command
+
+Function LoopF
+Begin
+	Loop 5
+		PrintLine "Hello!"
+	Stop
+End
+
+Call LoopF

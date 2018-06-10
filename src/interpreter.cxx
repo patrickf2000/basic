@@ -35,6 +35,9 @@ std::vector<Func> Interpreter::functions;
 std::vector<Var> Interpreter::vars;
 std::vector<std::string> Interpreter::condition_bd;
 bool Interpreter::in_condition;
+std::vector<std::string> Interpreter::loop_bd;
+int Interpreter::loop_count = 0;
+bool Interpreter::in_loop = false;
 Func Interpreter::currentF;
 std::string Interpreter::mem = "";
 
@@ -74,8 +77,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			currentF.name = "";
 		}
 	} else if (first=="Stop" && !ret.func) {
-		//Currently used only for conditionals
-		if (in_condition) {
+		if (in_condition) {				//Conditionals
 			in_condition = false;
 			
 			std::vector<Condition> conditions;
@@ -106,12 +108,27 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				
 			conditions.clear();	
 			condition_bd.clear();
+		} else if (in_loop) {			//Loops
+			in_loop = false;
+
+			int index = loop_count;
+			do {
+				for (int i = 0; i<loop_bd.size(); i++) {
+					run(loop_bd.at(i),true);
+				}
+				loop_count--;
+			} while (loop_count!=0);
+			
+			loop_bd.clear();
+			loop_count = 0;
 		}
 	} else {
 		if (ret.func && !ignore) {
 			currentF.content.push_back(line);
 		} else if (in_condition) {
 			condition_bd.push_back(line);
+		} else if (in_loop) {
+			loop_bd.push_back(line);
 		} else {
 			if (first=="Exit") {
 				std::exit(0);
@@ -224,6 +241,16 @@ Ret Interpreter::run(std::string line, bool ignore) {
 					condition_bd.push_back(line);
 				} else {
 					std::cout << "Error: You cannot have an Else statement without an opening If statement." << std::endl;
+				}
+				
+			//Loops
+			} else if (first=="Loop") {
+				in_loop = true;
+				
+				try {
+					loop_count = std::stoi(second);
+				} catch (std::invalid_argument) {
+					//Must be var
 				}
 			
 			//End with the unknown command message	

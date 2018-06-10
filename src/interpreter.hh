@@ -66,6 +66,9 @@ private:
 	static std::vector<Var> vars;
 	static std::vector<std::string> condition_bd;
 	static bool in_condition;
+	static std::vector<std::string> loop_bd;
+	static int loop_count;
+	static bool in_loop;
 	static Func currentF;
 	static std::string mem;
 };
