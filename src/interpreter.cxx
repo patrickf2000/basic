@@ -250,7 +250,21 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				try {
 					loop_count = std::stoi(second);
 				} catch (std::invalid_argument) {
-					//Must be var
+					//See if we have a variable
+					std::string n = second;
+					for (int i = 0; i<vars.size(); i++) {
+						if (vars.at(i).name==second) {
+							 n = vars.at(i).value;
+						}
+					}
+					
+					//Try to convert it
+					try {
+						loop_count = std::stoi(n);
+					} catch (std::invalid_argument) {
+						std::cout << "Error: Loop count number must be an integer." << std::endl;
+						in_loop = false;
+					}
 				}
 			
 			//End with the unknown command message	
