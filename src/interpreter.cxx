@@ -199,6 +199,21 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			} else if (first=="Define") {
 				def_var(second);
 				
+			//This destroys a particular variable
+			} else if (first=="Kill") {
+				bool found = false;
+				
+				for (int i = 0; i<vars.size(); i++) {
+					if (vars.at(i).name==second) {
+						vars.erase(vars.begin()+i);
+						found = true;
+					}
+				}
+				
+				if (!found) {
+					std::cout << "Error: Unknown variable." << std::endl;
+				}
+				
 			//Check for math functions
 			} else if (check_math(line)) {
 				//We do nothing in the body
