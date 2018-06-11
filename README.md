@@ -22,6 +22,10 @@ Memset-> Set the local memory
 Set-> Set a variable with the contents of local memory   
 StrLen-> Get the length of a string   
 Char-> Get the character at a specific location, or the location of a specific character   
+Kill-> Clear a particular variable   
+Destroy-> Clear all variables and the local memory   
+Abs-> Get the absolute value of a number   
+Random-> Generate a random number   
 
 #### Conditionals
 Conditionals have the following syntax:   
@@ -40,7 +44,7 @@ Below is a list of valid operators:
 3. Equals   
 
 #### Loops
-Currently, there is only one loop command: Loop. This is (and will be) the simplest type of loop. All you do is use the 'Loop' command, followed by a number (or variable representing a number). Any commands you type after that will be part of the loop body until you type 'Stop'. Below is an example that prints "Hello!" five times:   
+This is (and will be) the simplest type of loop. All you do is use the 'Loop' command, followed by a number (or variable representing a number). Any commands you type after that will be part of the loop body until you type 'Stop'. Below is an example that prints "Hello!" five times:   
 
 Loop 5   
 Print "Hello!"   
