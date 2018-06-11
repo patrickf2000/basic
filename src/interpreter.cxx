@@ -214,6 +214,11 @@ Ret Interpreter::run(std::string line, bool ignore) {
 					std::cout << "Error: Unknown variable." << std::endl;
 				}
 				
+			//This kills all variables and clears the memory
+			} else if (first=="Destroy") {
+				vars.clear();
+				mem = "";
+				
 			//Check for math functions
 			} else if (check_math(line)) {
 				//We do nothing in the body
