@@ -1,0 +1,22 @@
+Comment color.bs
+Comment This tests the color command
+
+Color red
+PrintLine "Red!"
+
+Color green
+PrintLine "Green!"
+
+Color yellow
+PrintLine "Yellow!"
+
+Color cyan
+PrintLine "Cyan!"
+
+Color magenta
+PrintLine "Magenta!"
+
+Color none
+PrintLine "No color!"
+
+Exit

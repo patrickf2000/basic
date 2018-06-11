@@ -66,3 +66,41 @@ void input(std::string line) {
 	}
 	Interpreter::vars = vars;
 }
+
+//The logic for the color command
+//Our colors are below
+const std::string red("\033[0;31m");
+const std::string green("\033[1;32m");
+const std::string yellow("\033[1;33m");
+const std::string cyan("\033[0;36m");
+const std::string magenta("\033[0;35m");
+const std::string reset("\033[0m");
+
+void color(std::string line) {
+	if (line=="red") {
+		std::cout << red;
+	} else if (line=="green") {
+		std::cout << green;
+	} else if (line=="yellow") {
+		std::cout << yellow;
+	} else if (line=="cyan") {
+		std::cout << cyan;
+	} else if (line=="magenta") {
+		std::cout << magenta;
+	} else if (line=="none") {
+		std::cout << reset;
+	} else {
+		std::cout << "Error: Unknown color." << std::endl;
+		std::cout << "Type \"ColorHelp\" for a list of options." << std::endl;
+	}
+}
+
+void color_help() {
+	std::cout << "Below are a list of available colors:" << std::endl;
+	std::cout << red << "red" << std::endl
+	<< green << "green" << std::endl
+	<< yellow << "yellow" << std::endl
+	<< cyan << "cyan" << std::endl
+	<< magenta << "magenta" << std::endl
+	<< reset << "none" << std::endl;
+}

@@ -183,6 +183,10 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				print(second,true);
 			} else if (first=="Input") {
 				input(second);
+			} else if (first=="Color") {
+				color(second);
+			} else if (first=="ColorHelp") {
+				color_help();
 			} else if (first=="Comment" || line.length()==0) {
 				//We do nothing here
 			} else if (first=="Clear") {
