@@ -30,6 +30,7 @@
 #include "interpreter.hh"
 #include "str.hh"
 #include "loop.hh"
+#include "io.hh"
 
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
@@ -309,67 +310,6 @@ Ret Interpreter::run(std::string line, bool ignore) {
 	
 	last_ret = ret;
 	return ret;
-}
-
-//The logic for our Print command
-void Interpreter::print(std::string entry, bool nl) {
-	bool found_qt = false;
-	std::string result = "";
-	
-	if (entry[0]=='\"' && entry[entry.length()-1]=='\"') {
-		found_qt = true;
-	}
-	
-	for (int i = 0; i<entry.length(); i++) {
-		if (entry[i]=='\"') {
-			continue;
-		} else {
-			result+=entry[i];
-		}
-	}
-	
-	if (found_qt) {
-		std::cout << result;
-		if (nl) {
-			std::cout << std::endl;
-		}
-	} else {
-		for (int i = 0; i<vars.size(); i++) {
-			Var v = vars.at(i);
-			if (v.name==result) {
-				if (v.value[0]=='\"' && v.value[v.value.length()-1]=='\"') {
-					print(v.value,nl);
-				} else {
-					std::cout << v.value;
-					if (nl) {
-						std::cout << std::endl;
-					}
-				}
-				break;
-			}
-		}
-	}
-}
-
-//The logic for the input command
-void Interpreter::input(std::string line) {
-	std::string ln = "";
-	std::getline(std::cin,ln);
-		
-	if (line.length()==0) {
-		std::cout << ln << std::endl;
-		return;
-	}
-	
-	for (int i = 0; i<vars.size(); i++) {
-		if (vars.at(i).name==line) {
-			Var v;
-			v.name = line;
-			v.value = ln;
-			vars.push_back(v);
-			vars.erase(vars.begin()+i);
-		}
-	}
 }
 
 //The logic for our variable definitions
