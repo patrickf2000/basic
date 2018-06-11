@@ -31,6 +31,7 @@
 #include "str.hh"
 #include "loop.hh"
 #include "io.hh"
+#include "math.hh"
 
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
@@ -198,17 +199,9 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			} else if (first=="Define") {
 				def_var(second);
 				
-			//These are the math functions
-			} else if (first=="Add") {
-				math('+',second);
-			} else if (first=="Sub") {
-				math('-',second);
-			} else if (first=="Mp") {
-				math('*',second);
-			} else if (first=="Div") {
-				math('/',second);
-			} else if (first=="Remainder") {
-				math('%',second);
+			//Check for math functions
+			} else if (check_math(line)) {
+				//We do nothing in the body
 			
 			//This sets the value of the memory to a variable
 			} else if (first=="Set") {
@@ -339,73 +332,6 @@ void Interpreter::def_var(std::string line) {
 	
 	if (!fv) {
 		std::cout << "Error: Unknown variable. Please define it first." << std::endl;
-	}
-}
-
-//The logic for our math solver
-void Interpreter::math(char op, std::string line) {
-	//First, break up the string
-	TriStr strs = split_three(line);
-	std::string str1 = strs.part1;
-	std::string middle = strs.part2;
-	std::string str2 = strs.part3;
-	
-	if (middle!="and") {
-		std::cout << "Error: Unknown keyword." << std::endl;
-		return;
-	}
-	
-	//Now, see if either of the parts are variables
-	for (int i = 0; i<vars.size(); i++) {
-		Var v = vars.at(i);
-		if (v.name==str1) {
-			str1 = v.value;
-		}
-		if (v.name==str2) {
-			str2 = v.value;
-		}
-	}
-	
-	//Convert and add
-	try {
-		int no1 = std::stoi(str1);
-		int no2 = std::stoi(str2);
-		
-		int sum = 0;
-		if (op=='+') {
-			sum = no1+no2;
-		} else if (op=='-') {
-			sum = no1-no2;
-		} else if (op=='*') {
-			sum = no1*no2;
-		} else if (op=='/') {
-			sum = no1/no2;
-		} else if (op=='%') {
-			sum = no1%no2;
-		}
-		mem = std::to_string(sum);
-	} catch (std::invalid_argument) {
-		if (op=='+') {
-			if (str1[0]!='\"' || str1[str1.length()-1]!='\"' || 
-				str2[0]!='\"' || str2[str2.length()-1]!='\"') {
-				std::cout << "Error: You can only add numbers or strings." << std::endl;
-				return;
-			}
-			
-			std::string final_s = "";
-			
-			for (int i = 0; i<str1.length()-1; i++) {
-				final_s+=str1[i];
-			}
-			
-			for (int i = 1; i<str2.length(); i++) {
-				final_s+=str2[i];
-			}
-			
-			mem = final_s;
-		} else {
-			std::cout << "Error: Invalid arguments." << std::endl;
-		}		
 	}
 }
 

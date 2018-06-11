@@ -27,59 +27,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 
-struct Ret {
-	bool func;
-	std::string func_name;
-	bool continue_exe;
-};
-
-struct Func {
-	std::string name;
-	std::vector<std::string> content;
-};
-
-struct Var {
-	std::string name;
-	std::string value;
-};
-
-struct Condition {
-	std::string cmp;
-	std::vector<std::string> body;
-};
-
-class Interpreter {
-public:
-	static void init();
-	static Ret run(std::string line, bool ignore);
-	static void def_var(std::string line);
-	static void char_command(std::string line);
-	static bool eval_condition(Condition c);
-	
-	//Public variables other functions may need
-	static std::vector<Var> vars;
-	static std::string mem;
-private:
-	static Ret last_ret;
-	//General vectors
-	static std::vector<Func> functions;
-	
-	//Stuff for conditions
-	static std::vector<std::string> condition_bd;
-	static bool in_condition;
-	
-	//Stuff for simple loops
-	static std::vector<std::string> loop_bd;
-	static int loop_count;
-	static bool in_loop;
-	
-	//Stuff for For loops
-	static std::vector<std::string> for_bd;
-	static std::string for_cmd;
-	static bool in_for;
-	
-	//Other stuff
-	static Func currentF;
-};
+bool check_math(std::string line);
+void math(char op, std::string line);
