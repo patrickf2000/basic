@@ -156,7 +156,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			for_bd.push_back(line);
 		} else {
 			if (first=="Exit") {
-				std::exit(0);
+				ret.continue_exe = false;
 			} else if (first=="Call") {
 				std::vector<std::string> content;
 				bool found = false;
