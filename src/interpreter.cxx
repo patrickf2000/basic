@@ -111,13 +111,13 @@ Ret Interpreter::run(std::string line, bool ignore) {
 		} else if (in_loop) {			//Loops
 			in_loop = false;
 
-			int index = loop_count;
+			int index = 0;
 			do {
 				for (int i = 0; i<loop_bd.size(); i++) {
 					run(loop_bd.at(i),true);
 				}
-				loop_count--;
-			} while (loop_count!=0);
+				index++;
+			} while (index<loop_count);
 			
 			loop_bd.clear();
 			loop_count = 0;
