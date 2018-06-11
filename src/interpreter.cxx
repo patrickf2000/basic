@@ -202,6 +202,15 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			//Check for math functions
 			} else if (check_math(line)) {
 				//We do nothing in the body
+			} else if (first=="Random") {
+				try {
+					second = get_var(second);
+					int no = std::stoi(second);
+					int rand = std::rand() % no+1;
+					mem = std::to_string(rand);
+				} catch (std::invalid_argument) {
+					std::cout << "Error: Argument must be an integer." << std::endl;
+				}
 			
 			//This sets the value of the memory to a variable
 			} else if (first=="Set") {
