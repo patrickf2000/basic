@@ -51,6 +51,6 @@ For loops are very similar to the Loop command, except that they allow you to se
 
 Var i   
 Define i as 0   
-For i to 10
+For i to 10   
 PrintLine i   
 Stop   
