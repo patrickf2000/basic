@@ -108,7 +108,8 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				
 			conditions.clear();	
 			condition_bd.clear();
-		} else if (in_loop) {			//Loops
+		}
+		if (in_loop) {			//Loops
 			in_loop = false;
 
 			int index = 0;
