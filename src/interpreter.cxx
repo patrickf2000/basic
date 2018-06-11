@@ -182,7 +182,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				print(second,true);
 			} else if (first=="Input") {
 				input(second);
-			} else if (first=="Comment") {
+			} else if (first=="Comment" || line.length()==0) {
 				//We do nothing here
 			} else if (first=="Clear") {
 				std::cout << "\033[2J" << std::endl;
