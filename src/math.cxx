@@ -64,16 +64,8 @@ void math(char op, std::string line) {
 	}
 	
 	//Now, see if either of the parts are variables
-	auto vars = Interpreter::vars;
-	for (int i = 0; i<vars.size(); i++) {
-		Var v = vars.at(i);
-		if (v.name==str1) {
-			str1 = v.value;
-		}
-		if (v.name==str2) {
-			str2 = v.value;
-		}
-	}
+	str1 = Interpreter::get_var(str1);
+	str2 = Interpreter::get_var(str2);
 	
 	//Convert and add
 	try {

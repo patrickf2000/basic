@@ -471,3 +471,15 @@ bool Interpreter::eval_condition(Condition c) {
 	
 	return true;
 }
+
+//This gets the value of a variable name
+//If no such variable exists, the original value is returned
+std::string Interpreter::get_var(std::string var) {
+	std::string ret = var;
+	for (int i = 0; i<vars.size(); i++) {
+		if (vars.at(i).name==var) {
+			ret = vars.at(i).value;
+		}
+	}
+	return ret;
+}
