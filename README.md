@@ -45,3 +45,12 @@ Currently, there is only one loop command: Loop. This is (and will be) the simpl
 Loop 5   
 Print "Hello!"   
 Stop   
+
+#### For loops
+For loops are very similar to the Loop command, except that they allow you to set and access a variable containing the current index. Basically, you set a variable, followed by the keyword 'to', and end with a loop counter. The loop counter may be a variable or a hard-coded example. Below is an example that will print all numbers from 0 to 9.   
+
+Var i   
+Define i as 0   
+For i to 10
+PrintLine i   
+Stop   
