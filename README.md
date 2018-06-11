@@ -26,6 +26,9 @@ Kill-> Clear a particular variable
 Destroy-> Clear all variables and the local memory   
 Abs-> Get the absolute value of a number   
 Random-> Generate a random number   
+Color-> Set the text color   
+ColorHelp-> Get a list of available text colors   
+Input-> Get user keyboard input   
 
 #### Conditionals
 Conditionals have the following syntax:   
