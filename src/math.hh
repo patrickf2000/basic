@@ -30,3 +30,4 @@
 
 bool check_math(std::string line);
 void math(char op, std::string line);
+void abs(std::string line);

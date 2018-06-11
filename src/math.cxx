@@ -25,6 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <iostream>
+#include <cmath>
 
 #include "math.hh"
 #include "str.hh"
@@ -44,6 +45,8 @@ bool check_math(std::string line) {
 		math('/',second);
 	} else if (first=="Remainder") {
 		math('%',second);
+	} else if (first=="Abs") {
+		abs(second);
 	} else {
 		return false;
 	}
@@ -107,5 +110,17 @@ void math(char op, std::string line) {
 		} else {
 			std::cout << "Error: Invalid arguments." << std::endl;
 		}		
+	}
+}
+
+//Get the absolute value of a number
+void abs(std::string line) {
+	try {
+		line = Interpreter::get_var(line);
+		int no = std::stoi(line);
+		int result = abs(no);
+		Interpreter::mem = std::to_string(result);
+	} catch (std::invalid_argument) {
+		std::cout << "Error: This command takes a numerical parameter." << std::endl;
 	}
 }
