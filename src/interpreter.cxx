@@ -29,15 +29,23 @@
 
 #include "interpreter.hh"
 #include "str.hh"
+#include "loop.hh"
 
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
 std::vector<Var> Interpreter::vars;
+
 std::vector<std::string> Interpreter::condition_bd;
 bool Interpreter::in_condition;
+
 std::vector<std::string> Interpreter::loop_bd;
 int Interpreter::loop_count = 0;
 bool Interpreter::in_loop = false;
+
+std::vector<std::string> Interpreter::for_bd;
+std::string Interpreter::for_cmd = "";
+bool Interpreter::in_for = false;
+
 Func Interpreter::currentF;
 std::string Interpreter::mem = "";
 
@@ -77,7 +85,8 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			currentF.name = "";
 		}
 	} else if (first=="Stop" && !ret.func) {
-		if (in_condition) {				//Conditionals
+		//Conditionals
+		if (in_condition) {
 			in_condition = false;
 			
 			std::vector<Condition> conditions;
@@ -109,7 +118,9 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			conditions.clear();	
 			condition_bd.clear();
 		}
-		if (in_loop) {			//Loops
+		
+		//Loops
+		if (in_loop) {
 			in_loop = false;
 
 			int index = 0;
@@ -123,6 +134,16 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			loop_bd.clear();
 			loop_count = 0;
 		}
+		
+		//For loops
+		if (in_for) {
+			in_for = false;
+			
+			run_for_loop(for_cmd,for_bd);
+			
+			for_bd.clear();
+			for_cmd = "";
+		}
 	} else {
 		if (ret.func && !ignore) {
 			currentF.content.push_back(line);
@@ -130,6 +151,8 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			condition_bd.push_back(line);
 		} else if (in_loop) {
 			loop_bd.push_back(line);
+		} else if (in_for) {
+			for_bd.push_back(line);
 		} else {
 			if (first=="Exit") {
 				std::exit(0);
@@ -273,6 +296,9 @@ Ret Interpreter::run(std::string line, bool ignore) {
 						in_loop = false;
 					}
 				}
+			} else if (first=="For") {
+				in_for = true;
+				for_cmd = second;
 			
 			//End with the unknown command message	
 			} else {

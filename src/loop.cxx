@@ -24,65 +24,63 @@
 // WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#pragma once
+#include <iostream>
 
-#include <string>
-#include <vector>
+#include "loop.hh"
+#include "str.hh"
+#include "interpreter.hh"
 
-struct Ret {
-	bool func;
-	std::string func_name;
-	bool continue_exe;
-};
-
-struct Func {
-	std::string name;
-	std::vector<std::string> content;
-};
-
-struct Var {
-	std::string name;
-	std::string value;
-};
-
-struct Condition {
-	std::string cmp;
-	std::vector<std::string> body;
-};
-
-class Interpreter {
-public:
-	static void init();
-	static Ret run(std::string line, bool ignore);
-	static void print(std::string entry, bool nl);
-	static void input(std::string line);
-	static void def_var(std::string line);
-	static void math(char op, std::string line);
-	static void char_command(std::string line);
-	static bool eval_condition(Condition c);
+void run_for_loop(std::string cmd, std::vector<std::string> body) {
+	//First, split the string
+	TriStr tri = split_three(cmd);
+	std::string var = tri.part1;
+	std::string middle = tri.part2;
+	std::string counter = tri.part3;
 	
-	//Public variables other functions may need
-	static std::vector<Var> vars;
-private:
-	static Ret last_ret;
-	//General vectors
-	static std::vector<Func> functions;
+	if (middle!="to") {
+		std::cout << "Error: Unknown keyword." << std::endl;
+		return;
+	}
 	
-	//Stuff for conditions
-	static std::vector<std::string> condition_bd;
-	static bool in_condition;
+	//Now, see if the counter references a variable
+	auto vars = Interpreter::vars;
 	
-	//Stuff for simple loops
-	static std::vector<std::string> loop_bd;
-	static int loop_count;
-	static bool in_loop;
+	for (int i = 0; i<vars.size(); i++) {
+		if (vars.at(i).name==counter) {
+			counter = vars.at(i).value;
+		}
+	}
 	
-	//Stuff for For loops
-	static std::vector<std::string> for_bd;
-	static std::string for_cmd;
-	static bool in_for;
+	//Convert the counter variable to a number
+	int count = 0;
 	
-	//Other stuff
-	static Func currentF;
-	static std::string mem;
-};
+	try {
+		count = std::stoi(counter);
+	} catch (std::invalid_argument) {
+		std::cout << "Error: You must use integers as counters in for loops." << std::endl;
+		return;
+	}
+	
+	//Now, loop.
+	//On each iteration, we must update our counter variable
+	//After that, run the body
+	int index = 0;
+	while (index<count) {
+		for (int i = 0; i<vars.size(); i++) {
+			if (vars.at(i).name==var) {
+				Var v;
+				v.name = vars.at(i).name;
+				v.value = std::to_string(index);
+				vars.push_back(v);
+				vars.erase(vars.begin()+i);
+			}
+		}
+		Interpreter::vars = vars;
+		
+		for (int i = 0; i<body.size(); i++) {
+			Interpreter::run(body.at(i),true);
+		}
+		
+		index++;
+	}
+}

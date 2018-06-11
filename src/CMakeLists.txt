@@ -5,6 +5,7 @@ set(SRC
 	main.cxx
 	interpreter.cxx
 	str.cxx
+	loop.cxx
 )
 
 add_executable(basic ${SRC})

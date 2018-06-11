@@ -1,0 +1,55 @@
+Comment for.bs
+Comment This tests the for command
+
+Function Test
+Begin
+	Var i
+	Define i as 0
+	
+	For i to 10
+		PrintLine i
+	Stop
+End
+
+Function VarTest
+Begin
+	Define i as 0
+	
+	Var no
+	Define no as 0
+	Print "Enter a number: "
+	Input no
+	
+	For i to no
+		PrintLine i
+	Stop
+End
+
+Function CharTest
+Begin
+	PrintLine ""
+	PrintLine ""
+	
+	Var str
+	Define str as "Hello!"
+	
+	Var len
+	Define len as 0
+	StrLen str
+	Set len
+
+	Var in
+	Define in as 0
+	Var c
+	Define c as ""
+	
+	For in to no
+		Char in in str
+		Set c
+		PrintLine c
+	Stop
+End
+
+Call Test
+Call VarTest
+Call CharTest
