@@ -38,3 +38,10 @@ Below is a list of valid operators:
 1. Greater   
 2. Less   
 3. Equals   
+
+#### Loops
+Currently, there is only one loop command: Loop. This is (and will be) the simplest type of loop. All you do is use the 'Loop' command, followed by a number (or variable representing a number). Any commands you type after that will be part of the loop body until you type 'Stop'. Below is an example that prints "Hello!" five times:   
+
+Loop 5   
+Print "Hello!"   
+Stop   
