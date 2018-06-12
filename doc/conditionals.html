@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>BASIC | Conditionals</title>
+</head>
+<body>
+
+<h1>Conditionals</h1>
+<hr />
+
+<h3>Overview</h3>
+<p>Like all other programming languages, BASIC has support for conditionals. Conditionals are a little different from other languages, and may take a little getting-used to. Below is an example of a conditional (it asks the user for two numbers and compares them):<br />
+<pre><code>
+Var no1
+Var no2
+
+Define no1 as 0
+Define no2 as 0
+
+Input no1
+Input no2
+
+If no1 Greater no2
+	PrintLine "Greater!"
+Else no1 Less no2
+	PrintLine "Less!"
+Else no2 Equals no2
+	PrintLine "Equal!"
+Else
+	PrintLine "What did you enter?"
+Stop
+</code></pre><br />
+As you can see, the general idea is the same as in other languages; its just the implementation that is slightly different. You can compare numbers and strings, both hard-coded or in variables. The first statement always begins with If. All other statements begin with Else. If you want an else with no condition, simply use 'Else'. Else, with a condition, is the equivalent of 'else if' in other languages. Finally, end the entire statement with 'Stop'. 
+</p>
+
+<h3>Operators</h3>
+<p>Unlike most other programming languages, BASIC does not use symbolic operators; we use words instead. The three operators are 'Greater', 'Less', and 'Equals'. What they do should be self-explanatory.</p>
+
+<h3>Nesting Loops</h3>
+<p>This is important. You CANNOT nest conditionals in BASIC. If you try to do so, you will create a conflict, and the program will get stuck (it shouldn't freeze your computer, though; Ctrl-C should kill it). If you must nest conditionals, you can enclose the next conditional statement in a function, and call that function.</p>
+
+<hr />
+<a href="index.html">Home</a>
+
+</body>
+</html>
