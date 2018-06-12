@@ -234,8 +234,18 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				
 			//This kills all variables and clears the memory
 			} else if (first=="Destroy") {
-				vars.clear();
-				mem = "";
+				if (second=="vars") {
+					vars.clear();
+				} else if (second=="mem") {
+					mem = "";
+				} else if (second=="all") {
+					vars.clear();
+					mem = "";
+				} else {
+					std::cout << "Error: Unknown input." << std::endl;
+					std::cout << "Destroy options:" << std::endl
+					<< "\tvars\n\tmem\n\tall" << std::endl;
+				}
 				
 			//Check for math functions
 			} else if (check_math(line)) {

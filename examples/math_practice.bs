@@ -2,17 +2,31 @@ Comment math_practice.bs
 Comment A simple math practice program
 Comment At this point, we only support addition and multiplication
 
-Function AddPractice
+Function Setup
 Begin
+	Var op
+	Set op
+	
 	Kill x
 	Var x
 	Define x as 0
+	
 	Clear
+	Color magenta
+	If op Equals "+"
+		Memset "+"
+		PrintLine "Addition Practice"
+	Else op Equals "x"
+		Memset "x"
+		PrintLine "Multiplication Practice"
+	Stop
+	Color none
+	
 	Print "How many times do you wish to practice? "
 	Input x
 
 	Loop x
-		Call RunAddPractice
+		Call RunPractice
 	Stop
 	
 	Color cyan
@@ -27,7 +41,7 @@ Begin
 	Input y
 	
 	If y Equals 1
-		Call AddPractice
+		Call Setup
 	Else y Equals 2
 		Exit
 	Else
@@ -38,13 +52,16 @@ Begin
 	Stop
 End
 
-Function RunAddPractice
+Function RunPractice
 Begin
-	Destroy
+	Destroy vars
 	
 	Var no1
 	Var no2
 	Var answer
+	
+	Var op
+	Set op
 	
 	Random 10
 	Set no1
@@ -52,12 +69,19 @@ Begin
 	Random 10
 	Set no2
 	
-	Add no1 and no2
+	If op Equals "+"
+		Add no1 and no2
+	Else op Equals "x"
+		Mp no1 and no2
+	Stop
+	
 	Set answer
 	
 	Print "Solve: "
 	Print no1
-	Print " + "
+	Print " "
+	Print op
+	Print " "
 	Print no2
 	Print " = "
 	PrintLine ""
@@ -79,87 +103,7 @@ Begin
 		PrintLine ""
 	Stop
 	
-	PrintLine "Press any key to continue..."
-	Input
-	Clear
-End
-
-Function MpPractice
-Begin
-	Kill x
-	Var x
-	Define x as 0
-	Clear
-	Print "How many times do you wish to practice? "
-	Input x
-
-	Loop x
-		Call RunMpPractice
-	Stop
-	
-	Color cyan
-	PrintLine "Well done!"
-	Color none
-	PrintLine ""
-	
-	Var y
-	Define y as 0
-	PrintLine "Press 1 to practice again."
-	PrintLine "Press 2 to exit."
-	Input y
-	
-	If y Equals 1
-		Call MpPractice
-	Else y Equals 2
-		Exit
-	Else
-		Color red
-		PrintLine "Unknown input"
-		Color none
-		Exit
-	Stop
-End
-
-Function RunMpPractice
-Begin
-	Destroy
-	
-	Var no1
-	Var no2
-	Var answer
-	
-	Random 10
-	Set no1
-	
-	Random 10
-	Set no2
-	
-	Mp no1 and no2
-	Set answer
-	
-	Print "Solve: "
-	Print no1
-	Print " x "
-	Print no2
-	Print " = "
-	PrintLine ""
-	
-	Var in
-	Define in as 0
-	Input in
-	
-	If in Equals answer
-		Color green
-		PrintLine "Correct!"
-		Color none
-	Else
-		Color red
-		PrintLine "Wrong!"
-		Color none
-		Print "The answer is: "
-		Print answer
-		PrintLine ""
-	Stop
+	Memset op
 	
 	PrintLine "Press any key to continue..."
 	Input
@@ -180,9 +124,11 @@ Begin
 	Input x
 
 	If x Equals 1
-		Call AddPractice
+		Memset "+"
+		Call Setup
 	Else x Equals 2
-		Call MpPractice
+		Memset "x"
+		Call Setup
 	Else x Equals 3
 		Exit
 	Else
