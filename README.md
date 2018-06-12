@@ -23,7 +23,7 @@ Set-> Set a variable with the contents of local memory
 StrLen-> Get the length of a string   
 Char-> Get the character at a specific location, or the location of a specific character   
 Kill-> Clear a particular variable   
-Destroy-> Clear all variables and the local memory   
+Destroy-> (vars,mem,all) Clear all variables and/or the local memory   
 Abs-> Get the absolute value of a number   
 Random-> Generate a random number   
 Color-> Set the text color   
