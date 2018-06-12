@@ -337,6 +337,23 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				} else {
 					ret.prog = second;
 				}
+				
+			//Displays author information
+			} else if (first=="Author") {
+				std::cout << "BASIC 1.0" << std::endl
+				<< "Written by Patrick Flynn" << std::endl << std::endl
+				<< "This program is a simple, easy BASIC interpreter." << std::endl
+				<< "You can use it via source files or from the command line."
+				<< std::endl << std::endl
+				<< "This program is licensed under the BSD-3 license." << std::endl
+				<< "See the included license file (COPYING) for more information." << std::endl
+				<< "If you do not have the license file, please follow the link below:" << std::endl
+				<< "<https://github.com/patrickf2000/basic/blob/master/COPYING>" << std::endl;
+				
+			} else if (first=="Version") {
+				std::cout << "BASIC" << std::endl
+				<< "You are using version 1.0." << std::endl
+				<< "Type \"Author\" for more information." << std::endl;
 			
 			//End with the unknown command message	
 			} else {
