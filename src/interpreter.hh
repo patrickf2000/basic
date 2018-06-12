@@ -30,6 +30,7 @@
 #include <vector>
 
 struct Ret {
+	std::string prog;
 	bool func;
 	std::string func_name;
 	bool continue_exe;

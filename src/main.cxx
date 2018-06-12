@@ -67,10 +67,11 @@ int main(int argc, char **argv) {
 		std::cout << "BASIC 1.0" << std::endl;
 		std::cout << "Welcome to the BASIC shell." << std::endl << std::endl;
 	
+		std::string prog = "BASIC";
 		std::string func = "";
 	
 		while (true) {
-			std::cout << "BASIC> "+func;
+			std::cout << prog+"> "+func;
 			
 			std::string line = "";
 			std::getline(std::cin,line);
@@ -81,6 +82,7 @@ int main(int argc, char **argv) {
 			} else {
 				func = "";
 			}
+			prog = r.prog;
 			
 			if (r.continue_exe==false) {
 				break;

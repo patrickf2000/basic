@@ -52,6 +52,7 @@ Func Interpreter::currentF;
 std::string Interpreter::mem = "";
 
 void Interpreter::init() {
+	last_ret.prog = "BASIC";
 	last_ret.func = false;
 	last_ret.continue_exe = true;
 	last_ret.func_name = "";
@@ -326,6 +327,16 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			} else if (first=="For") {
 				in_for = true;
 				for_cmd = second;
+				
+			//Sets the program name that appears in the shell
+			} else if (first=="Program") {
+				if (second=="none") {
+					ret.prog = "";
+				} else if (second=="default") {
+					ret.prog = "BASIC";
+				} else {
+					ret.prog = second;
+				}
 			
 			//End with the unknown command message	
 			} else {
