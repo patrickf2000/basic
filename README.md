@@ -29,6 +29,7 @@ Random-> Generate a random number
 Color-> Set the text color   
 ColorHelp-> Get a list of available text colors   
 Input-> Get user keyboard input   
+Program-> Change name in shell prompt   
 
 #### Conditionals
 Conditionals have the following syntax:   
