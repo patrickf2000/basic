@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>BASIC | Program structure/Functions</title>
+</head>
+<body>
+
+<h1>Program structure/Functions</h1>
+<hr />
+
+<h3>Program Structure</h3>
+<p>Like many interpreted languages, BASIC does not require everything to be in a function. In fact, at least part of every BASIC program must NOT be part of a function. When BASIC sees a function, it just records the function and makes a reference to it. It will never be run until you use the 'Call' command. Like many languages, function order does matter. You must define your functions before you call them. See the next section for more information.</p>
+
+<h3>Functions</h3>
+<p>Functions can be used in both shell and file mode. However, they will only be recorded unless you call them. To define a function, first use the 'Function' keyword, followed by its name. Then, use the keyword 'Begin'. If you are in shell mode, you will notice the function name in brackets next to the prompt. To indicate the end of a function, use the 'End' keyword. When you are ready to use it, use the 'Call' keyword. Below is an example. You may use it in either shell or file mode.<br /><br />
+<pre><code>
+Function SayHello
+Begin
+	PrintLine "Hello!"
+End
+
+Call SayHello
+</code></pre><br /><br />
+Functions do not take or return parameters the same way other languages do. An explanation of this can be found in the variables and memory documentation.
+</p>
+
+<hr />
+<a href="index.html">Home</a>
+
+</body>
+</html>
