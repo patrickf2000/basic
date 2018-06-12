@@ -1,6 +1,6 @@
 ## BASIC
 
-This is a simple BASIC interpreter. Its still in its early stages, so its fairly limited. You can use this program from the shell or via the command line with a source file. Below is a list of commands. A language definition will come later
+This is a simple BASIC interpreter. While it is still in its early stages, it is growing less limited. You can write a variety of programs with it. See the examples folder for some programs (some are just feature tests, others are examples of what this interpreter can do). You can use this program from the shell or via the command line with a source file. Below is a list of commands. A language definition will come later
 
 #### Commands
 Print-> Print to the console (no new line)   
@@ -30,6 +30,8 @@ Color-> Set the text color
 ColorHelp-> Get a list of available text colors   
 Input-> Get user keyboard input   
 Program-> Change name in shell prompt   
+Author-> Display author and license information   
+Version-> Display version information   
 
 #### Conditionals
 Conditionals have the following syntax:   
