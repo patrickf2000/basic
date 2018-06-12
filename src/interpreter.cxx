@@ -112,14 +112,27 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			conditions.push_back(current);
 			current.body.clear();
 			
+			std::vector<std::string> bd_tmp;
+			
+			bool found = false;
 			for (int i = 0; i<conditions.size(); i++) {
 				if (eval_condition(conditions.at(i))) {
+					bd_tmp = conditions.at(i).body;
+					found = true;
 					break;
 				}
 			}
 				
 			conditions.clear();	
 			condition_bd.clear();
+			
+			//If found, run body
+			//We do it like this to prevent conditional conflicts
+			if (found) {
+				for (int i = 0; i<bd_tmp.size(); i++) {
+					run(bd_tmp.at(i),true);
+				}
+			}
 		}
 		
 		//Loops
@@ -460,15 +473,16 @@ void Interpreter::char_command(std::string line) {
 }
 
 //The logic for evaluating conditionals
+//We cannot run the body here, because if we do
+//so, we could cause a lock if a call is made to a
+//function with conditionals. As a result, the main
+//interpreter function will run the body.
 bool Interpreter::eval_condition(Condition c) {
 	std::string cmp = c.cmp;
 	
 	//If cmp length is 0, then we are at a last-resort else
 	//Simply execute the body, and return
 	if (cmp.length()==0) {
-		for (int i = 0; i<c.body.size(); i++) {
-			run(c.body.at(i),true);
-		}
 		return true;
 	}
 	
@@ -523,11 +537,6 @@ bool Interpreter::eval_condition(Condition c) {
 	
 	if (!r) {
 		return false;
-	}
-	
-	//Run comparison body
-	for (int i = 0; i<c.body.size(); i++) {
-		run(c.body.at(i),true);
 	}
 	
 	return true;

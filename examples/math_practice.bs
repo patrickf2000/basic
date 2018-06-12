@@ -1,0 +1,196 @@
+Comment math_practice.bs
+Comment A simple math practice program
+Comment At this point, we only support addition and multiplication
+
+Function AddPractice
+Begin
+	Kill x
+	Var x
+	Define x as 0
+	Clear
+	Print "How many times do you wish to practice? "
+	Input x
+
+	Loop x
+		Call RunAddPractice
+	Stop
+	
+	Color cyan
+	PrintLine "Well done!"
+	Color none
+	PrintLine ""
+	
+	Var y
+	Define y as 0
+	PrintLine "Press 1 to practice again."
+	PrintLine "Press 2 to exit."
+	Input y
+	
+	If y Equals 1
+		Call AddPractice
+	Else y Equals 2
+		Exit
+	Else
+		Color red
+		PrintLine "Unknown input"
+		Color none
+		Exit
+	Stop
+End
+
+Function RunAddPractice
+Begin
+	Destroy
+	
+	Var no1
+	Var no2
+	Var answer
+	
+	Random 10
+	Set no1
+	
+	Random 10
+	Set no2
+	
+	Add no1 and no2
+	Set answer
+	
+	Print "Solve: "
+	Print no1
+	Print " + "
+	Print no2
+	Print " = "
+	PrintLine ""
+	
+	Var in
+	Define in as 0
+	Input in
+	
+	If in Equals answer
+		Color green
+		PrintLine "Correct!"
+		Color none
+	Else
+		Color red
+		PrintLine "Wrong!"
+		Color none
+		Print "The answer is: "
+		Print answer
+		PrintLine ""
+	Stop
+	
+	PrintLine "Press any key to continue..."
+	Input
+	Clear
+End
+
+Function MpPractice
+Begin
+	Kill x
+	Var x
+	Define x as 0
+	Clear
+	Print "How many times do you wish to practice? "
+	Input x
+
+	Loop x
+		Call RunMpPractice
+	Stop
+	
+	Color cyan
+	PrintLine "Well done!"
+	Color none
+	PrintLine ""
+	
+	Var y
+	Define y as 0
+	PrintLine "Press 1 to practice again."
+	PrintLine "Press 2 to exit."
+	Input y
+	
+	If y Equals 1
+		Call MpPractice
+	Else y Equals 2
+		Exit
+	Else
+		Color red
+		PrintLine "Unknown input"
+		Color none
+		Exit
+	Stop
+End
+
+Function RunMpPractice
+Begin
+	Destroy
+	
+	Var no1
+	Var no2
+	Var answer
+	
+	Random 10
+	Set no1
+	
+	Random 10
+	Set no2
+	
+	Mp no1 and no2
+	Set answer
+	
+	Print "Solve: "
+	Print no1
+	Print " x "
+	Print no2
+	Print " = "
+	PrintLine ""
+	
+	Var in
+	Define in as 0
+	Input in
+	
+	If in Equals answer
+		Color green
+		PrintLine "Correct!"
+		Color none
+	Else
+		Color red
+		PrintLine "Wrong!"
+		Color none
+		Print "The answer is: "
+		Print answer
+		PrintLine ""
+	Stop
+	
+	PrintLine "Press any key to continue..."
+	Input
+	Clear
+End
+
+Function Menu
+Begin
+	Clear
+	Color cyan
+	PrintLine "Welcome to Math Practice!"
+	Color none
+	PrintLine "Press 1 for addition practice."
+	PrintLine "Press 2 for multiplication practice."
+	PrintLine "Press 3 to exit."
+
+	Var x
+	Input x
+
+	If x Equals 1
+		Call AddPractice
+	Else x Equals 2
+		Call MpPractice
+	Else x Equals 3
+		Exit
+	Else
+		Color red
+		PrintLine "Unknown input"
+		Color none
+		Exit
+	Stop
+End
+
+Call Menu
