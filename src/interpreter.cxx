@@ -394,6 +394,20 @@ void Interpreter::def_var(std::string line) {
 		return;
 	}
 	
+	//See if val references a command
+	//If so, parse
+	if (val[0]=='(') {
+		std::string cmd = "";
+		for (int i = 0; i<val.size(); i++) {
+			if (val[i]=='(' || val[i]==')') {
+				continue;
+			}
+			cmd+=val[i];
+		}
+		run(cmd,true);
+		val = mem;
+	}
+	
 	bool fv = false;
 	for (int i = 0; i<vars.size(); i++) {
 		if (vars.at(i).name==name) {

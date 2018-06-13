@@ -1,0 +1,18 @@
+Comment func_var.bs
+Comment This tests defining a function by using another command
+
+Var no1
+Var no2
+Var answer
+
+Print "Enter a number: "
+Input no1
+
+Print "Enter another number: "
+Input no2
+
+Define answer as (Add no1 and no2)
+
+Print "Answer: "
+Print answer
+PrintLine ""
