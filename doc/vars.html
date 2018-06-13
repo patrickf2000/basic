@@ -10,7 +10,7 @@
 
 <h3>Introduction to Variables and Local Memory</h3>
 <p>Depending on what kind of a programming background you come from, you may find the way variables work to be a little wierd in this dialect of BASIC. Unlike most other programming languages, variables are not limited to a particular scope. Instead, variables are always in the global scope. So, if you declare a variable in a function, it will be available outside the function unless you kill it. It is very easy to destroy and reset variables.<br /><br />
-Also unlike many other languages, you cannot set variables by using functions. Some commands take variables as parameters; however, most do not. This is where local memory comes in. Local memory is nothing special; it is simply a static string variable controlled by the interpreter. Many functions, particularly the math functions, post the result to this memory. You can then set this memory to a variable. Like variables, this is preserved on the global scope, and can be easily set and cleared.<br /><br />
+After version 1.0, you can now set variables by using commands. While some commands take variables as parameters, most do not. This is where local memory comes in. Local memory is nothing special; it is simply a static string variable controlled by the interpreter. Many functions, particularly the math functions, post the result to this memory. You can then set this memory to a variable, either by using the define command or the set command. Like variables, this is preserved on the global scope, and can be easily set and cleared.<br /><br />
 Although the concept may sound difficult, it really is not. The whole reasoning behind it is that variables are controlled by a global vector in the interpreter. This increases reduces the complexity of the interpreter by not having to worry about managing variables. Instead, the user is provided with commands to easily do this to his or her liking. This also eliminates the need to have a parameter and return system for functions.</p>
 
 <h3>Creating and defining variables</h3>
@@ -18,7 +18,7 @@ Although the concept may sound difficult, it really is not. The whole reasoning 
 
 Creating variables: To create variables, use the 'Var' keyword, followed by a name. You do not define the variable here; all you are doing is creating it. <em>Note:</em> Currently, the command does not check to see if an existing variable by that name exists. Creating a new variable by the same name without first killing it will cause strange behavior in your program.<br /><br />
 
-Defining variables: Defining variables is used by the 'Define' command. The syntax is: <code>Define (var name) as (value).</code> String values must be enclosed in quotation marks. Variables can also be defined by using local memory. See below in the section on local memory.</p>
+Defining variables: Defining variables is used by the 'Define' command. The syntax is: <code>Define (var name) as (value).</code> String values must be enclosed in quotation marks. To set the result of a command, use the syntax as above, only enclose your command in parentheses. Variables can also be defined by using local memory. See below in the section on local memory.</p>
 
 <h3>Using local memory</h3>
 <p>Local memory, conceptually speaking, is not that different from variables. The main difference is that only one form of it exists, and it must be copied to a variable to be used. However, local memory is not read-only to the user; you are free to set it as well.<br /><br />
