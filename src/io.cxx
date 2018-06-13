@@ -54,6 +54,12 @@ void input(std::string line) {
 		return;
 	}
 	
+	try {
+		std::stoi(ln);
+	} catch (std::invalid_argument) {
+		ln="\""+ln+"\"";
+	}
+	
 	auto vars = Interpreter::vars;
 	for (int i = 0; i<vars.size(); i++) {
 		if (vars.at(i).name==line) {
