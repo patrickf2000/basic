@@ -70,12 +70,10 @@ Begin
 	Set no2
 	
 	If op Equals "+"
-		Add no1 and no2
+		Define answer as (Add no1 and no2)
 	Else op Equals "x"
-		Mp no1 and no2
+		Define answer as (Mp no1 and no2)
 	Stop
-	
-	Set answer
 	
 	Print "Solve: "
 	Print no1
