@@ -55,10 +55,8 @@ class Interpreter {
 public:
 	static void init();
 	static Ret run(std::string line, bool ignore);
-	static void def_var(std::string line);
 	static void char_command(std::string line);
 	static bool eval_condition(Condition c);
-	static std::string get_var(std::string var);
 	
 	//Public variables other functions may need
 	static std::vector<Var> vars;

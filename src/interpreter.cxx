@@ -32,6 +32,7 @@
 #include "loop.hh"
 #include "io.hh"
 #include "math.hh"
+#include "vars.hh"
 
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
@@ -211,20 +212,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			// 1) Var v-> This creates the variable.
 			// 2) Define v as 10-> Sets 10 as the value of v
 			} else if (first=="Var") {
-				bool found = false;
-				
-				for (int i = 0; i<vars.size(); i++) {
-					if (vars.at(i).name==second) {
-						found = true;
-						break;
-					}
-				}
-			
-				if (!found) {
-					Var v;
-					v.name = second;
-					vars.push_back(v);
-				}
+				create_var(second);
 			} else if (first=="Define") {
 				def_var(second);
 				
@@ -289,24 +277,11 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			
 			//Sets the memory	
 			} else if (first=="Memset") {
-				mem = second;
-				for (int i = 0; i<vars.size(); i++) {
-					if (vars.at(i).name==second) {
-						mem = vars.at(i).value;
-						break;
-					}
-				}
+				mem = get_var(second);
 				
 			//These are our string functions
 			} else if (first=="StrLen") {
-				std::string val = second;
-				
-				for (int i = 0; i<vars.size(); i++) {
-					if (vars.at(i).name==second) {
-						val = vars.at(i).value;
-						break;
-					}
-				}
+				std::string val = get_var(second);
 				
 				if (val[0]!='\"' || val[val.length()-1]!='\"') {
 					std::cout << "Error: Invalid string." << std::endl;
@@ -391,50 +366,6 @@ Ret Interpreter::run(std::string line, bool ignore) {
 	
 	last_ret = ret;
 	return ret;
-}
-
-//The logic for our variable definitions
-void Interpreter::def_var(std::string line) {
-	TriStr strs = split_three(line);
-	std::string name = strs.part1;
-	std::string middle = strs.part2;
-	std::string val = strs.part3;
-	
-	if (middle!="as") {
-		std::cout << "Error: Unknown keyword." << std::endl;
-		return;
-	}
-	
-	//See if val references a command
-	//If so, parse
-	if (val[0]=='(') {
-		std::string cmd = "";
-		for (int i = 0; i<val.size(); i++) {
-			if (val[i]=='(' || val[i]==')') {
-				continue;
-			}
-			cmd+=val[i];
-		}
-		run(cmd,true);
-		val = mem;
-	}
-	
-	bool fv = false;
-	for (int i = 0; i<vars.size(); i++) {
-		if (vars.at(i).name==name) {
-			fv = true;
-			
-			Var v;
-			v.name = name;
-			v.value = val;
-			vars.push_back(v);
-			vars.erase(vars.begin()+i);
-		}
-	}
-	
-	if (!fv) {
-		std::cout << "Error: Unknown variable. Please define it first." << std::endl;
-	}
 }
 
 //The Char command
@@ -568,16 +499,4 @@ bool Interpreter::eval_condition(Condition c) {
 	}
 	
 	return true;
-}
-
-//This gets the value of a variable name
-//If no such variable exists, the original value is returned
-std::string Interpreter::get_var(std::string var) {
-	std::string ret = var;
-	for (int i = 0; i<vars.size(); i++) {
-		if (vars.at(i).name==var) {
-			ret = vars.at(i).value;
-		}
-	}
-	return ret;
 }

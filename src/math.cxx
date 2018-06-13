@@ -30,6 +30,7 @@
 #include "math.hh"
 #include "str.hh"
 #include "interpreter.hh"
+#include "vars.hh"
 
 bool check_math(std::string line) {
 	std::string first = str_first(line);
@@ -67,8 +68,8 @@ void math(char op, std::string line) {
 	}
 	
 	//Now, see if either of the parts are variables
-	str1 = Interpreter::get_var(str1);
-	str2 = Interpreter::get_var(str2);
+	str1 = get_var(str1);
+	str2 = get_var(str2);
 	
 	//Convert and add
 	try {
@@ -116,7 +117,7 @@ void math(char op, std::string line) {
 //Get the absolute value of a number
 void abs(std::string line) {
 	try {
-		line = Interpreter::get_var(line);
+		line = get_var(line);
 		int no = std::stoi(line);
 		int result = abs(no);
 		Interpreter::mem = std::to_string(result);
