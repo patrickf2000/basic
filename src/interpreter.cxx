@@ -219,17 +219,10 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				
 			//This destroys a particular variable
 			} else if (first=="Kill") {
-				bool found = false;
-				
 				for (int i = 0; i<vars.size(); i++) {
 					if (vars.at(i).name==second) {
 						vars.erase(vars.begin()+i);
-						found = true;
 					}
-				}
-				
-				if (!found) {
-					std::cout << "Error: Unknown variable." << std::endl;
 				}
 				
 			//This kills all variables and clears the memory
