@@ -211,9 +211,20 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			// 1) Var v-> This creates the variable.
 			// 2) Define v as 10-> Sets 10 as the value of v
 			} else if (first=="Var") {
-				Var v;
-				v.name = second;
-				vars.push_back(v);
+				bool found = false;
+				
+				for (int i = 0; i<vars.size(); i++) {
+					if (vars.at(i).name==second) {
+						found = true;
+						break;
+					}
+				}
+			
+				if (!found) {
+					Var v;
+					v.name = second;
+					vars.push_back(v);
+				}
 			} else if (first=="Define") {
 				def_var(second);
 				
