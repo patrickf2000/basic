@@ -1,0 +1,46 @@
+#!/usr/local/bin/basic
+Comment cat.bs
+Comment This simulates the UNIX cat program
+
+Var file
+
+Function EchoMode
+Begin
+	Var str
+	Loop 10
+		Input str
+		PrintLine str
+	Stop
+	Call EchoMode
+End
+
+Function ReadFile
+Begin
+	List contents
+	File Read file to contents
+	
+	Var i
+	Var len
+	Var str
+	
+	Define i as 0
+	Define len as (List Length of contents)
+	Define str as ""
+	
+	For i to len
+		Define str as (List Show i in contents)
+		PrintLine str
+	Stop
+	
+	Exit
+End
+
+Var len
+Define len as (List Length of args)
+
+If len Equals 0
+	Call EchoMode
+Else
+	Define file as (List Show 0 in args)
+	Call ReadFile
+Stop
