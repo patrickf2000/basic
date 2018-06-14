@@ -18,6 +18,8 @@ void list_command(std::string line) {
 		list_length(second);
 	} else if (first=="Show") {
 		list_show(second);
+	} else if (first=="Remove") {
+		list_rm(second);
 	} else {
 		//Unknown command-> Assume new list
 		List l;
@@ -131,4 +133,49 @@ void list_show(std::string line) {
 			break;
 		}
 	}	
+}
+
+//Removes a particular item from a list
+void list_rm(std::string line) {
+	//First, split the string
+	TriStr parts = split_three(line);
+	std::string no = parts.part1;
+	std::string middle = parts.part2;
+	std::string list = parts.part3;
+	
+	if (middle!="in") {
+		std::cout << "Error: Unknown keyword." << std::endl;
+		return;
+	}
+	
+	//Convert to number
+	no = get_var(no);
+	int index = 0;
+	
+	try {
+		index = std::stoi(no);
+	} catch (std::invalid_argument) {
+		std::cout << "Error: You must past an integer argument as a list index." << std::endl;
+		return;
+	}
+
+	//Make sure we are not exceeding the bounds
+	auto lists = Interpreter::lists;
+	
+	for (int i = 0; i<lists.size(); i++) {
+		List current = lists.at(i);
+		if (current.name==list) {
+			//Make sure we do not cause an out-of-bounds exception
+			if (index>current.contents.size()) {
+				std::cout << "Error: You have exceeded the bounds of this list." << std::endl;
+				return;
+			}
+			
+			//Remove the item
+			lists.at(i).contents.erase(lists.at(i).contents.begin()+index);
+			break;
+		}
+	}
+	
+	Interpreter::lists = lists;
 }

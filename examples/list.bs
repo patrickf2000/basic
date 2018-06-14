@@ -30,5 +30,22 @@ Begin
 	Stop
 End
 
+Function RmList
+Begin
+	Var len
+	Define len as (List Length of list)
+	
+	Var x
+	Define x as (Random len)
+	
+	Print "Removing index: "
+	Print x
+	PrintLine ""
+	
+	List Remove x in list
+End
+
 Call CreateList
+Call ShowList
+Call RmList
 Call ShowList
