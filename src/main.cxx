@@ -28,6 +28,7 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
+#include <vector>
 
 #include "interpreter.hh"
 #include "str.hh"
@@ -36,32 +37,46 @@ int main(int argc, char **argv) {
 	Interpreter::init();
 	
 	if (argc>1) {
+		//Get the program's arguments
+		std::string file = "";
+		std::vector<std::string> args;
+		
 		for (int i = 1; i<argc; i++) {
-			std::string current = std::string(argv[i]);
-			
-			//For speed, we will dynamically read and execute
-			std::ifstream reader(current);
-			if (reader.is_open()) {
-				std::string line = "";
-				
-				while (std::getline(reader,line)) {
-					std::string input = trim(line);
-					if (input.length()==0) {
-						continue;
-					}
-				
-					Ret r = Interpreter::run(input,false);
-					
-					if (r.continue_exe==false) {
-						break;
-					}
-				}
-				
-				reader.close();
+			if (i==1) {
+				file = std::string(argv[i]);
 			} else {
-				std::cout << "Fatal error: Unknown file." << std::endl;
-				std::exit(1);
+				args.push_back(std::string(argv[i]));
 			}
+		}
+		
+		//Push the arguments
+		List l;
+		l.name="args";
+		l.contents = args;
+		Interpreter::lists.push_back(l);
+		
+		//For speed, we will dynamically read and execute
+		std::ifstream reader(file);
+		if (reader.is_open()) {
+			std::string line = "";
+			
+			while (std::getline(reader,line)) {
+				std::string input = trim(line);
+				if (input.length()==0) {
+					continue;
+				}
+			
+				Ret r = Interpreter::run(input,false);
+				
+				if (r.continue_exe==false) {
+					break;
+				}
+			}
+			
+			reader.close();
+		} else {
+			std::cout << "Fatal error: Unknown file." << std::endl;
+			std::exit(1);
 		}
 	} else {
 		std::cout << "BASIC 1.0" << std::endl;

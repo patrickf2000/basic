@@ -1,0 +1,28 @@
+Comment args.bs
+Comment This demonstrates how arguments can be passed and used to a BASIC program.
+Comment Command line arguments are kept in a list called 'args'
+
+Var current
+Define current as ""
+
+Function Parse
+Begin
+	If current Equals --help
+		PrintLine "HELP!!!!"
+	Else current Equals --version
+		PrintLine "Version 1.0"
+	Else
+		PrintLine "What?!?"
+	Stop
+End
+
+Var len
+Define len as (List Length of args)
+
+Var i
+Define i as 0
+
+For i to len
+	Define current as (List Show i in args)
+	Call Parse
+Stop
