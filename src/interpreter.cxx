@@ -237,15 +237,18 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			} else if (first=="Destroy") {
 				if (second=="vars") {
 					vars.clear();
+				} else if (second=="lists") {
+					lists.clear();
 				} else if (second=="mem") {
 					mem = "";
 				} else if (second=="all") {
 					vars.clear();
+					lists.clear();
 					mem = "";
 				} else {
 					std::cout << "Error: Unknown input." << std::endl;
 					std::cout << "Destroy options:" << std::endl
-					<< "\tvars\n\tmem\n\tall" << std::endl;
+					<< "\tvars\n\tlists\n\tmem\n\tall" << std::endl;
 				}
 				
 			//Check for math functions
