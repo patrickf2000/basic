@@ -34,6 +34,7 @@
 #include "math.hh"
 #include "vars.hh"
 #include "list.hh"
+#include "file.hh"
 
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
@@ -368,6 +369,11 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				std::cout << "BASIC" << std::endl
 				<< "You are using version 1.0." << std::endl
 				<< "Type \"Author\" for more information." << std::endl;
+				
+			//File operations
+			//Most file logic is handeled by other functions
+			} else if (first=="File") {
+				file_command(second);
 			
 			//End with the unknown command message	
 			} else {

@@ -1,0 +1,24 @@
+Comment file.bs
+Comment This tests file IO operations
+
+Function ReadFile
+Begin
+	List contents
+	File Read ./file.txt to contents
+	
+	PrintLine "Below is our file:"
+	
+	Var len
+	Var i
+	Var str
+	
+	Define len as (List Length of contents)
+	Define i as 0
+	
+	For i to len
+		Define str as (List Show i in contents)
+		PrintLine str
+	Stop
+End
+
+Call ReadFile

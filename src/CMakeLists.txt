@@ -10,6 +10,7 @@ set(SRC
 	math.cxx
 	vars.cxx
 	list.cxx
+	file.cxx
 )
 
 add_executable(basic ${SRC})
