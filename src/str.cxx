@@ -82,6 +82,20 @@ std::string trim(std::string line) {
 	return ret;
 }
 
+std::string rm_quotes(std::string line) {
+	if (line[0]!='\"' || line[line.length()-1]!='\"') {
+		return line;
+	}
+	
+	std::string ret = "";
+	
+	for (int i = 1; i<line.length()-1; i++) {
+		ret+=line[i];
+	}
+	
+	return ret;
+}
+
 TriStr split_three(std::string line) {
 	TriStr ret;
 	

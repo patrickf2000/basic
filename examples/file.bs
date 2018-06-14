@@ -21,4 +21,20 @@ Begin
 	Stop
 End
 
+Function WriteFile
+Begin
+	List Clear contents
+	
+	PrintLine "Enter some text:"
+	Var str
+	Loop 5
+		Input str
+		List Add str to contents
+	Stop
+	
+	File Write contents to ./file.txt
+End
+
 Call ReadFile
+PrintLine ""
+Call WriteFile

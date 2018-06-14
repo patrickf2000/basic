@@ -31,6 +31,7 @@
 std::string str_first(std::string line);
 std::string str_second(std::string line);
 std::string trim(std::string line);
+std::string rm_quotes(std::string line);
 
 struct TriStr {
 	std::string part1;
