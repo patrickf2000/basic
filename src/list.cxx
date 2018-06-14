@@ -20,6 +20,8 @@ void list_command(std::string line) {
 		list_show(second);
 	} else if (first=="Remove") {
 		list_rm(second);
+	} else if (first=="Clear") {
+		list_cls(second);
 	} else {
 		//Unknown command-> Assume new list
 		List l;
@@ -174,6 +176,19 @@ void list_rm(std::string line) {
 			//Remove the item
 			lists.at(i).contents.erase(lists.at(i).contents.begin()+index);
 			break;
+		}
+	}
+	
+	Interpreter::lists = lists;
+}
+
+//Clears a list completely
+void list_cls(std::string line) {
+	auto lists = Interpreter::lists;
+	
+	for (int i = 0; i<lists.size(); i++) {
+		if (lists.at(i).name==line) {
+			lists.at(i).contents.clear();
 		}
 	}
 	

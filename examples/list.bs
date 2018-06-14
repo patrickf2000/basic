@@ -45,7 +45,14 @@ Begin
 	List Remove x in list
 End
 
+Function ClsList
+Begin
+	List Clear list
+End
+
 Call CreateList
 Call ShowList
 Call RmList
+Call ShowList
+Call ClsList
 Call ShowList
