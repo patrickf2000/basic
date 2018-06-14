@@ -1,0 +1,18 @@
+#!/usr/local/bin/basic
+Comment echo.bs
+Comment Replicates the echo program
+
+Var i
+Var len
+Var str
+
+Define i as 0
+Define len as (List Length of args)
+
+For i to len
+	Define str as (List Show i in args)
+	Print str
+	Print " "
+Stop
+
+PrintLine ""

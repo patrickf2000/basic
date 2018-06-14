@@ -205,7 +205,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 				color(second);
 			} else if (first=="ColorHelp") {
 				color_help();
-			} else if (first=="Comment" || line.length()==0) {
+			} else if (first=="Comment" || line.length()==0 || line[0]=='#') {
 				//We do nothing here
 			} else if (first=="Clear") {
 				std::cout << "\033[2J" << std::endl;
