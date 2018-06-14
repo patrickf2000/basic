@@ -33,10 +33,12 @@
 #include "io.hh"
 #include "math.hh"
 #include "vars.hh"
+#include "list.hh"
 
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
 std::vector<Var> Interpreter::vars;
+std::vector<List> Interpreter::lists;
 
 std::vector<std::string> Interpreter::condition_bd;
 bool Interpreter::in_condition;
@@ -223,6 +225,13 @@ Ret Interpreter::run(std::string line, bool ignore) {
 						vars.erase(vars.begin()+i);
 					}
 				}
+				
+			//List controls
+			//Unlike other commands, all List-related commands are arguments
+			//to the List command. This helps us from getting too many
+			//secondary commands.
+			} else if (first=="List") {
+				list_command(second);
 				
 			//This kills all variables and clears the memory
 			} else if (first=="Destroy") {

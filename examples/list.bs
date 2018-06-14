@@ -1,0 +1,34 @@
+Comment list.bs
+Comment This tests BASIC lists
+
+Function CreateList
+Begin
+	List list
+	
+	Var i
+	Define i as 0
+	For i to 10
+		List Add i to list
+	Stop
+End
+
+Function ShowList
+Begin
+	Var len
+	Define len as (List Length of list)
+	
+	Print "List length: "
+	Print len
+	PrintLine ""
+	PrintLine ""
+	
+	Var x
+	Define i as 0
+	For i to len
+		Define x as (List Show i in list)
+		PrintLine x
+	Stop
+End
+
+Call CreateList
+Call ShowList

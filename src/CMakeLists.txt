@@ -9,6 +9,7 @@ set(SRC
 	io.cxx
 	math.cxx
 	vars.cxx
+	list.cxx
 )
 
 add_executable(basic ${SRC})

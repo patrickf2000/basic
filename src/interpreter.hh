@@ -46,6 +46,11 @@ struct Var {
 	std::string value;
 };
 
+struct List {
+	std::string name;
+	std::vector<std::string> contents;
+};
+
 struct Condition {
 	std::string cmp;
 	std::vector<std::string> body;
@@ -60,6 +65,7 @@ public:
 	
 	//Public variables other functions may need
 	static std::vector<Var> vars;
+	static std::vector<List> lists;
 	static std::string mem;
 private:
 	static Ret last_ret;
