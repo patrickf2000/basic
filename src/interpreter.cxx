@@ -204,26 +204,7 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			if (first=="Exit") {
 				ret.continue_exe = false;
 			} else if (first=="Call") {
-				std::vector<std::string> content;
-				bool found = false;
-				
-				for (int i = 0; i<functions.size(); i++) {
-					if (functions.at(i).name==second) {
-						content = functions.at(i).content;
-						found = true;
-						break;
-					}
-				}
-				
-				if (found) {
-					for (int i = 0; i<content.size(); i++) {
-						run(content.at(i),true);
-					}
-					
-					reset_vars();
-				} else {
-					std::cout << "Error: You are asking for a non-existent function." << std::endl;
-				}
+				call_func(second);
 			} else if (first=="Print") {
 				print(second,false);
 			} else if (first=="PrintLine") {
@@ -413,6 +394,30 @@ Ret Interpreter::run(std::string line, bool ignore) {
 	
 	last_ret = ret;
 	return ret;
+}
+
+//The logic for calling functions
+void Interpreter::call_func(std::string name) {
+	std::vector<std::string> content;
+	bool found = false;
+				
+	for (int i = 0; i<functions.size(); i++) {
+		if (functions.at(i).name==name) {
+			content = functions.at(i).content;
+			found = true;
+			break;
+		}
+	}
+				
+	if (found) {
+		for (int i = 0; i<content.size(); i++) {
+			run(content.at(i),true);
+		}
+			
+		reset_vars();
+	} else {
+		std::cout << "Error: You are asking for a non-existent function." << std::endl;
+	}
 }
 
 //The logic for including files (used by the Include command)

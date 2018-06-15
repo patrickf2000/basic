@@ -60,6 +60,7 @@ class Interpreter {
 public:
 	static void init();
 	static Ret run(std::string line, bool ignore);
+	static void call_func(std::string name);
 	static bool include_file(std::string line, std::string prefix);
 	static void char_command(std::string line);
 	static bool eval_condition(Condition c);
