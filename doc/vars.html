@@ -9,12 +9,10 @@
 <hr />
 
 <h3>Introduction to Variables and Local Memory</h3>
-<p>Depending on what kind of a programming background you come from, you may find the way variables work to be a little wierd in this dialect of BASIC. Unlike most other programming languages, variables are not limited to a particular scope. Instead, variables are always in the global scope. So, if you declare a variable in a function, it will be available outside the function unless you kill it. It is very easy to destroy and reset variables.<br /><br />
-After version 1.0, you can now set variables by using commands. While some commands take variables as parameters, most do not. This is where local memory comes in. Local memory is nothing special; it is simply a static string variable controlled by the interpreter. Many functions, particularly the math functions, post the result to this memory. You can then set this memory to a variable, either by using the define command or the set command. Like variables, this is preserved on the global scope, and can be easily set and cleared.<br /><br />
-Although the concept may sound difficult, it really is not. The whole reasoning behind it is that variables are controlled by a global vector in the interpreter. This increases reduces the complexity of the interpreter by not having to worry about managing variables. Instead, the user is provided with commands to easily do this to his or her liking. This also eliminates the need to have a parameter and return system for functions.</p>
+<p>Depending on what kind of a programming background you come from, you may or may not find variables and the concept of local memory to be a little wierd. Hopefully not. Like most programming languages, variables exist on the local and global scope (prior to BASIC version 1.2, they only existed globally). Global variables can be accessed anywhere in the program, including functions, after they have been declared. Local variables are declared in a function, and destroyed when the function returns.<br />Local memory is nothing special. It is simply a static variable in the interpreter that can be controlled by the programmer. Many commands return their value to local memory. Local memory is useful when you want to temporarily set or pass a value without creating an entire variable.</p>
 
 <h3>Creating and defining variables</h3>
-<p>Defining variables is easy, but I will admit that it is a little more cumbersome than in other languages. I am still debating on whether or not to change this, and if so, how to do so without causing a major syntax change.<br /><br >
+<p>Defining variables is easy, but I will admit that it is a little more cumbersome than in other languages. This has been changed slightly to make it easier, though.<br /><br >
 
 Creating variables: To create variables, use the 'Var' keyword, followed by a name. You do not define the variable here; all you are doing is creating it. If a variable by that name already exists, it will not be re-created; nothing will happen.<br /><br />
 
@@ -28,7 +26,7 @@ To clear local memory, you can use one of two commands. First, you can use 'Mems
 
 <h3>Kill and Destroy</h3>
 <p>The 'Kill' command is used to completely erase and remove variables from the global variable array. Simply use it like this: <code>Kill (var name)</code><br /><br />
-The 'Destroy' command is used to wipe memory. It takes one of three parameters: vars, mem, all. The 'vars' parameter clears all variales. The 'mem' parameter will reset local memory. The 'all' parameter will combine the other two. To limit variables and memory to functional scope, like in other languages, simply add 'Destroy all' to the end of each of your functions.</p>
+The 'Destroy' command is used to wipe memory. It takes one of three parameters: vars, lists, mem, all. The 'vars' parameter clears all variales. The 'lists' parameter clears all lists (including the command line arguments list, 'args'). The 'mem' parameter will reset local memory. The 'all' parameter will combine the other two.</p>
 
 <hr />
 <a href="index.html">Home</a>
