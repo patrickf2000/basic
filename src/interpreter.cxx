@@ -26,6 +26,7 @@
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <iostream>
 #include <cstdlib>
+#include <fstream>
 
 #include "interpreter.hh"
 #include "str.hh"
@@ -37,6 +38,7 @@
 #include "file.hh"
 
 Ret Interpreter::last_ret;
+std::vector<std::string> Interpreter::include_paths;
 std::vector<Func> Interpreter::functions;
 std::vector<Var> Interpreter::vars;
 std::vector<Var> Interpreter::backup_vars;
@@ -61,6 +63,14 @@ void Interpreter::init() {
 	last_ret.func = false;
 	last_ret.continue_exe = true;
 	last_ret.func_name = "";
+	
+	//Loads the Include path vector
+	//All paths are hard-coded right now; eventually,
+	//they will be loaded from a config file.
+	include_paths.push_back("");
+	include_paths.push_back("/usr/include/basic/");
+	include_paths.push_back("/usr/local/include/basic/");
+	include_paths.push_back("/opt/basic/include/");
 }
 
 //The main interpreter
@@ -167,6 +177,19 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			
 			for_bd.clear();
 			for_cmd = "";
+		}
+	} else if (first=="Include") {
+		bool f = false;
+		
+		for (int i = 0; i<include_paths.size(); i++) {
+			f = include_file(second,include_paths.at(i));
+			if (f) {
+				break;
+			}
+		}
+		
+		if (!f) {
+			std::cout << "Error: Unable to include non-existent file." << std::endl;
 		}
 	} else {
 		if (ret.func && !ignore) {
@@ -390,6 +413,22 @@ Ret Interpreter::run(std::string line, bool ignore) {
 	
 	last_ret = ret;
 	return ret;
+}
+
+//The logic for including files (used by the Include command)
+bool Interpreter::include_file(std::string line, std::string prefix) {
+	std::string path = prefix+line;
+	std::ifstream reader(path);
+	if (reader.is_open()) {
+		std::string line = "";
+		while (std::getline(reader,line)) {
+			run(trim(line),false);
+		}
+		reader.close();
+	} else {
+		return false;
+	}
+	return true;
 }
 
 //The Char command

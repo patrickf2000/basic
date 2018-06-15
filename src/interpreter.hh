@@ -60,6 +60,7 @@ class Interpreter {
 public:
 	static void init();
 	static Ret run(std::string line, bool ignore);
+	static bool include_file(std::string line, std::string prefix);
 	static void char_command(std::string line);
 	static bool eval_condition(Condition c);
 	
@@ -71,6 +72,7 @@ public:
 private:
 	static Ret last_ret;
 	//General vectors
+	static std::vector<std::string> include_paths;
 	static std::vector<Func> functions;
 	
 	//Stuff for conditions

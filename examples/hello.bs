@@ -1,0 +1,8 @@
+Comment hello.bs
+Comment This is included by include.bs to test the Include command.
+
+Function SayHello
+Begin
+	PrintLine "Hello!!"
+	PrintLine "How are you today?"
+End

@@ -1,0 +1,6 @@
+Comment include.bs
+Comment This tests the include command
+
+Include hello.bs
+
+Call SayHello
