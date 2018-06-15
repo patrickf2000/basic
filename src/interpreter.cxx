@@ -39,6 +39,7 @@
 Ret Interpreter::last_ret;
 std::vector<Func> Interpreter::functions;
 std::vector<Var> Interpreter::vars;
+std::vector<Var> Interpreter::backup_vars;
 std::vector<List> Interpreter::lists;
 
 std::vector<std::string> Interpreter::condition_bd;
@@ -81,6 +82,9 @@ Ret Interpreter::run(std::string line, bool ignore) {
 		//Used for functions
 		if (ret.func_name!="") {
 			ret.func = true;
+			
+			//Backup the array
+			backup_vars = vars;
 		}
 	} else if (first=="End") {
 		//Used for functions
@@ -192,6 +196,8 @@ Ret Interpreter::run(std::string line, bool ignore) {
 					for (int i = 0; i<content.size(); i++) {
 						run(content.at(i),true);
 					}
+					
+					reset_vars();
 				} else {
 					std::cout << "Error: You are asking for a non-existent function." << std::endl;
 				}

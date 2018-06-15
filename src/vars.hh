@@ -28,6 +28,7 @@
 
 #include <string>
 
+void reset_vars();
 void create_var(std::string line);
 std::string get_var(std::string var);
 void def_var(std::string line);

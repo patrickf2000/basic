@@ -30,6 +30,45 @@
 #include "interpreter.hh"
 #include "str.hh"
 
+//This resets variables to limit scope to only within functions.
+//However, we must maintain any global variables. Here's how we do it:
+//1) Create a backup copy of the array
+//2) Run function,....
+//3) At the end of the function, go through the main array
+//		* If we find a variable that is also in the backup
+//		array, than it is global. Pass it (and the new value)
+//		to the array.
+//		* NOTE: This action is called by the logic for the Call command.
+//		If we do it after the End command, then we destroy everything too
+//		early.
+//4) Destroy the main array by clearing it and setting it equal to the
+//		backup array
+//
+//Step 1 and 2 are handled by the main interpreter, since they are easy.
+//Step 3 and 4 is handled by this function to keep things clean.
+void reset_vars() {
+	auto bk_vars = Interpreter::backup_vars;
+	auto vars = Interpreter::vars;
+	
+	for (int i = 0; i<vars.size(); i++) {
+		Var current = vars.at(i);
+		
+		for (int j = 0; j<bk_vars.size(); j++) {
+			Var bk_current = bk_vars.at(j);
+			
+			if (current.name==bk_current.name) {
+				bk_vars.at(j).value = current.value;
+			}
+		}
+	}
+	
+	vars.clear();
+	vars = bk_vars;
+	
+	Interpreter::backup_vars.clear();
+	Interpreter::vars = vars;
+}
+
 //Creates new variables
 void create_var(std::string line) {
 	auto vars = Interpreter::vars;

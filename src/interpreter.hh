@@ -65,6 +65,7 @@ public:
 	
 	//Public variables other functions may need
 	static std::vector<Var> vars;
+	static std::vector<Var> backup_vars;
 	static std::vector<List> lists;
 	static std::string mem;
 private:

@@ -1,0 +1,58 @@
+Comment scope.bs
+Comment This tests the new way of handeling variables.
+
+Var no1
+Var no2
+
+Define no1 as 10
+Define no2 as 20
+
+Print "No1: "
+Print no1
+PrintLine ""
+
+Print "No2: "
+Print no2
+PrintLine ""
+PrintLine ""
+
+Function ScopeTest
+Begin
+	Var no3
+	Var no4
+	
+	Define no3 as 30
+	Define no4 as 40
+	
+	Print "No3: "
+	Print no3
+	PrintLine ""
+	
+	Print "No4: "
+	Print no4
+	PrintLine ""
+	
+	PrintLine ""
+End
+
+Call ScopeTest
+
+PrintLine "After function:"
+
+Print "No1: "
+Print no1
+PrintLine ""
+
+Print "No2: "
+Print no2
+PrintLine ""
+PrintLine ""
+
+Print "No3: "
+Print no3
+PrintLine ""
+	
+Print "No4: "
+Print no4
+PrintLine ""
+
