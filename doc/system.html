@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>BASIC | System IO</title>
+</head>
+<body>
+
+<h1>System IO</h1>
+<hr />
+
+<h3>The Console</h3>
+<p>There are three main console operations: Printing, clearing the screen, and coloring text. You can print using one of two commands: Print and PrintLine. Print just prints what you want, but does not end with a new line. PrintLine does. Print is ideal for user input prompts and when you wish to display variables and text on one line.<br /><br />
+Clearing the screen is done using the Clear command. This will clear your console and reset the cursor.<br /><br />
+The Color command is used to set the text color. Use ColorHelp to get a list of available colors. Color uses ASCII escape sequences to color text, and while it should be supported by the majority of consoles and systems, you may still run into cases where it causes wierd behavior.</p>
+
+<h3>User Input</h3>
+<p>You can get user input from the console using the Input command. Input takes a variable as a parameter. If you want "Press any key to continue" behavior, simply provide Input without any variables.</p>
+
+<h3>Command Line Arguments</h3>
+<p>If you are running in file mode, you can access command line arguments. Arguments are passed to a List called "args". You can access and use this like any other list.<br /><em>WARNING:</em> If you use the List Kill or the Destroy command, you can destroy this list. If you have any command line arguments, it is advisable to use them as early as possible.</p>
+
+<h3>File IO</h3>
+<p>BASIC now has simple support for file operations. At this point, it can only read and write files. Files are read line by line to a List, and writing is done by passing a List (where each element represents a single line) to be read and written. Below is the syntax:<br /><br />
+<strong>Reading files:</strong><br /><code>File Read (file name) to (list variable)</code><br /><br />
+<strong>Writing files:</strong><br /><code>File Write (list variable) to (file name)</code><br /><br /></p>
+
+<hr />
+<a href="index.html">Home</a>
+
+</body>
+</html>
