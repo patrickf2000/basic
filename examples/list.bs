@@ -23,7 +23,9 @@ Begin
 	PrintLine ""
 	
 	Var x
+	Var i
 	Define i as 0
+	
 	For i to len
 		Define x as (List Show i in list)
 		PrintLine x

@@ -13,6 +13,7 @@ End
 
 Function VarTest
 Begin
+	Var i
 	Define i as 0
 	
 	Var no
@@ -34,16 +35,15 @@ Begin
 	Define str as "Hello!"
 	
 	Var len
-	Define len as 0
-	StrLen str
-	Set len
+	Define len as (StrLen str)
 
 	Var in
 	Define in as 0
+	
 	Var c
 	Define c as ""
 	
-	For in to no
+	For in to len
 		Char in in str
 		Set c
 		PrintLine c

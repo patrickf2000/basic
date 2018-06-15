@@ -9,8 +9,7 @@ PrintLine str
 PrintLine ""
 
 Var len
-StrLen str
-Set len
+Define len as (StrLen str)
 
 Var index
 Memset len
