@@ -1,138 +1,133 @@
 Comment math_practice.bs
-Comment A simple math practice program
-Comment At this point, we only support addition and multiplication
+Comment This is a math practice program
 
-Function Setup
+Include input.bs
+Include print.bs
+
+List numbers
+
+Function Setup[op]
 Begin
-	Var op
-	Set op
-	
-	Kill x
-	Var x
-	Define x as 0
-	
 	Clear
-	Color magenta
-	If op Equals "+"
-		Memset "+"
-		PrintLine "Addition Practice"
-	Else op Equals "x"
-		Memset "x"
-		PrintLine "Multiplication Practice"
-	Stop
-	Color none
 	
-	Print "How many times do you wish to practice? "
-	Input x
-
-	Loop x
-		Call RunPractice
+	Var msg
+	Define msg as "How many times do you wish to practice? "
+	
+	Var no_practice
+	Define no_practice as (Call Prompt[msg])
+	
+	Loop no_practice
+		Clear
+		Call Practice[op]
 	Stop
 	
-	Color cyan
-	PrintLine "Well done!"
-	Color none
-	PrintLine ""
-	
-	Var y
-	Define y as 0
-	PrintLine "Press 1 to practice again."
-	PrintLine "Press 2 to exit."
-	Input y
-	
-	If y Equals 1
-		Call Setup
-	Else y Equals 2
-		Exit
-	Else
-		Color red
-		PrintLine "Unknown input"
-		Color none
-		Exit
-	Stop
+	Call Menu2[op]
 End
 
-Function RunPractice
+Function Practice[op]
 Begin
-	Destroy vars
-	
 	Var no1
 	Var no2
 	Var answer
-	
-	Var op
-	Set op
-	
-	Random 10
-	Set no1
-	
-	Random 10
-	Set no2
-	
-	If op Equals "+"
-		Define answer as (Add no1 and no2)
-	Else op Equals "x"
-		Define answer as (Mp no1 and no2)
-	Stop
+
+	Define no1 as (Random 10)
+	Define no2 as (Random 10)
 	
 	Print "Solve: "
 	Print no1
-	Print " "
-	Print op
-	Print " "
+	If op Equals "+"
+		Define answer as (Add no1 and no2)
+		Print " + "
+	Else op Equals "-"
+		Define answer as (Sub no1 and no2)
+		Print " - "
+	Else op Equals "x"
+		Define answer as (Mp no1 and no2)
+		Print " x "
+	Else op Equals "/"
+		Define answer as (Div no1 and no2)
+		Print " / "
+	Stop
+	
 	Print no2
 	Print " = "
-	PrintLine ""
 	
-	Var in
-	Define in as 0
-	Input in
+	Var user
+	Input user
 	
-	If in Equals answer
+	If user Equals answer
 		Color green
-		PrintLine "Correct!"
+		PrintLine "Correct!!"
 		Color none
 	Else
 		Color red
 		PrintLine "Wrong!"
 		Color none
-		Print "The answer is: "
+		Print "The answer is "
 		Print answer
 		PrintLine ""
 	Stop
 	
-	Memset op
-	
+	PrintLine ""
 	PrintLine "Press any key to continue..."
 	Input
+End
+
+Function Menu2[op]
+Begin
 	Clear
+	
+	Color cyan
+	PrintLine "Fantastic!!"
+	Color none
+	
+	PrintLine "Press 1 to practice again."
+	PrintLine "Press 2 to return to the main menu."
+	PrintLine "Press 3 to exit."
+	
+	Var in
+	Input in
+	
+	If in Equals 1
+		Call Setup[op]
+	Else in Equals 2
+		Call Menu
+	Else in Equals 3
+		Exit
+	Else
+		PrintError["Unknown input!"]
+	Stop
 End
 
 Function Menu
 Begin
 	Clear
-	Color cyan
-	PrintLine "Welcome to Math Practice!"
+	
+	Color magenta
+	PrintLine "Welcome to Math Practice!!"
 	Color none
-	PrintLine "Press 1 for addition practice."
-	PrintLine "Press 2 for multiplication practice."
-	PrintLine "Press 3 to exit."
-
-	Var x
-	Input x
-
-	If x Equals 1
-		Memset "+"
-		Call Setup
-	Else x Equals 2
-		Memset "x"
-		Call Setup
-	Else x Equals 3
+	
+	PrintLine "Press 1 for addition."
+	PrintLine "Press 2 for subraction."
+	PrintLine "Press 3 for multiplication."
+	PrintLine "Press 4 for division."
+	PrintLine "Press 5 to exit."
+	
+	Var in
+	Define in as (Call Prompt["> "])
+	
+	If in Equals 1
+		Call Setup["+"]
+	Else in Equals 2
+		Call Setup["-"]
+	Else in Equals 3
+		Call Setup["x"]
+	Else in Equals 4
+		Call Setup["/"]
+	Else in Equals 5
 		Exit
 	Else
-		Color red
-		PrintLine "Unknown input"
-		Color none
+		Call PrintError["Unknown input!"]
 		Exit
 	Stop
 End
