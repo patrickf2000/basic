@@ -87,6 +87,8 @@ Ret Interpreter::run(std::string line, bool ignore) {
 		} else {
 			currentF.name = get_name(second);
 			ret.func_name = get_name(second);
+			
+			currentF.params = get_params(second);
 		}
 	} else if (first=="Begin") {
 		//Used for functions
@@ -407,9 +409,63 @@ std::string Interpreter::get_name(std::string line) {
 	return ret;
 }
 
+//Get function parameters
+std::vector<std::string> Interpreter::get_params(std::string line) {
+	std::vector<std::string> params;
+	
+	std::string ln = "";
+	
+	//First, get everything inside the brackets
+	for (int i = 0; i<line.length(); i++) {
+		if (line[i]=='[') {
+			for (int j = i+1; j<line.length(); j++) {
+				if (line[j]==']') {
+					break;
+				}
+				ln+=line[j];
+			}
+			break;
+		}
+	}
+	
+	//Remove any spaces
+	std::string tmp = "";
+	bool qt = false;		//We do not want to remove spaces if we are inside a quote
+	
+	for (int i = 0; i<ln.length(); i++) {
+		if (ln[i]=='\"') {
+			if (qt) {
+				qt = false;
+			} else {
+				qt = true;
+			}
+		} else if (ln[i]==' ' && !qt) {
+			continue;
+		}
+		tmp+=ln[i];
+	}
+	ln = tmp;
+	
+	//Now, separate the string into parameters
+	std::string current = "";
+	for (int i = 0; i<ln.length(); i++) {
+		if (ln[i]==',') {
+			params.push_back(current);
+			current = "";
+		} else {
+			current+=ln[i];
+		}
+	}
+	params.push_back(current);
+	
+	return params;
+}
+
 //The logic for calling functions
 void Interpreter::call_func(std::string line) {
 	std::vector<std::string> content;
+	std::vector<std::string> func_params;
+	std::vector<std::string> params = get_params(line);
 	bool found = false;
 	
 	std::string name = get_name(line);
@@ -417,6 +473,7 @@ void Interpreter::call_func(std::string line) {
 	for (int i = 0; i<functions.size(); i++) {
 		if (functions.at(i).name==name) {
 			content = functions.at(i).content;
+			func_params = functions.at(i).params;
 			found = true;
 			break;
 		}
@@ -426,6 +483,26 @@ void Interpreter::call_func(std::string line) {
 		//Backup the array
 		backup_vars = vars;
 		
+		//Check to make sure we have enough parameters.
+		if (func_params.size()!=params.size()) {
+			std::cout << "Error: Wrong number of function parameters." << std::endl;
+			std::cout << "Required number: " << func_params.size() << std::endl;
+			std::cout << "Your number: " << params.size() << std::endl;
+			return;
+		}
+		
+		//Pass in the parameters
+		for (int i = 0; i<params.size(); i++) {
+			std::string func_current = func_params.at(i);
+			std::string current = params.at(i);
+			
+			Var v;
+			v.name = func_current;
+			v.value = get_var(current);
+			vars.push_back(v);
+		}
+		
+		//Run the content
 		for (int i = 0; i<content.size(); i++) {
 			run(content.at(i),true);
 		}

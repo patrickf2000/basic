@@ -39,6 +39,7 @@ struct Ret {
 struct Func {
 	std::string name;
 	std::vector<std::string> content;
+	std::vector<std::string> params;
 };
 
 struct Var {
@@ -61,6 +62,7 @@ public:
 	static void init();
 	static Ret run(std::string line, bool ignore);
 	static std::string get_name(std::string line);
+	static std::vector<std::string> get_params(std::string line);
 	static void call_func(std::string line);
 	static bool include_file(std::string line, std::string prefix);
 	static void char_command(std::string line);

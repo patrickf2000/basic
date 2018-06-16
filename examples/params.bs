@@ -1,6 +1,18 @@
 Comment params.bs
 Comment This tests command line parameters
 
+Function Param2[str]
+Begin
+	Print "The awesome string: "
+	Print str
+	PrintLine ""
+End
+
+Function SayHello
+Begin
+	PrintLine "Hello!"
+End
+
 Function Param[str1,str2]
 Begin
 	Print "Str1: "
@@ -10,12 +22,12 @@ Begin
 	Print "Str2: "
 	Print str2
 	PrintLine ""
+	
+	Call Param2[str1]
+	Call SayHello
 End
 
 Var msg1
-Var msg2
-
 Define msg1 as "Hello!"
-Define msg2 as "How are you?"
 
-Call Param[msg1,msg2]
+Call Param[msg1,"I am awesome!!"]
