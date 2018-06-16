@@ -1,13 +1,16 @@
 Comment print.bs
 Comment This includes several convience print functions
 
-Function PrintError
+Function PrintError[msg]
 Begin
-	Var msg
-	Set msg
-	
 	Color red
 	PrintLine msg
 	Color none
 End
 
+Function PrintVar[msg,var]
+Begin
+	Print msg
+	Print var
+	PrintLine ""
+End
