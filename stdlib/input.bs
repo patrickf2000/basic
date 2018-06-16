@@ -1,0 +1,21 @@
+Comment input.bs
+Comment Input functions
+
+Comment This simply gets input and passes it to memory.
+Comment It is useful because it can be used as a Define parameter.
+Function GetInput
+Begin
+	Var in
+	Input in
+	Memset in
+End
+
+Comment This gets input with a prompt message.
+Comment It too can be used as a Define parameter.
+Function Prompt[msg]
+Begin
+	Var in
+	Print msg
+	Input in
+	Memset in
+End
