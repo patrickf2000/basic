@@ -21,7 +21,22 @@ End
 
 Call SayHello
 </code></pre><br /><br />
-Functions do not take or return parameters the same way other languages do. An explanation of this can be found in the variables and memory documentation.
+As of version 1.3, functions can take parameters like other languages. To define parameters, simply end your function name with an opening bracket, followed by your parameters separated by commas, and ending with a closing bracket. Passing parameters is very similar. When you use the 'Call' command, end the function name with an opening bracket, followed by your input parameters. Parameters can be either variables are hard-coded. If your function takes no parameters, then use no brackets. Below is an example:<br /><br />
+<pre><code>
+Function PrintMsg[msg1,msg2]
+Begin
+	PrintLine "Msg1:"
+	PrintLine msg1
+	
+	PrintLine "Msg2:"
+	PrintLine msg2
+End
+
+Var message
+Define message as "Hello!"
+
+Call PrintMsg[message,"How are you?"]
+</code></pre><br />
 </p>
 
 <hr />
