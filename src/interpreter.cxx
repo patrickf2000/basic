@@ -85,16 +85,13 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			std::cout << "Error: You cannot nest functions." << std::endl;
 			std::cout << "Use \"End\" to stop the current function." << std::endl;
 		} else {
-			currentF.name = second;
-			ret.func_name = second;
+			currentF.name = get_name(second);
+			ret.func_name = get_name(second);
 		}
 	} else if (first=="Begin") {
 		//Used for functions
 		if (ret.func_name!="") {
 			ret.func = true;
-			
-			//Backup the array
-			backup_vars = vars;
 		}
 	} else if (first=="End") {
 		//Used for functions
@@ -396,10 +393,26 @@ Ret Interpreter::run(std::string line, bool ignore) {
 	return ret;
 }
 
+//Get the name from a function line with params
+std::string Interpreter::get_name(std::string line) {
+	std::string ret = "";
+	
+	for (int i = 0; i<line.length(); i++) {
+		if (line[i]=='[') {
+			break;
+		}
+		ret+=line[i];
+	}
+	
+	return ret;
+}
+
 //The logic for calling functions
-void Interpreter::call_func(std::string name) {
+void Interpreter::call_func(std::string line) {
 	std::vector<std::string> content;
 	bool found = false;
+	
+	std::string name = get_name(line);
 				
 	for (int i = 0; i<functions.size(); i++) {
 		if (functions.at(i).name==name) {
@@ -410,6 +423,9 @@ void Interpreter::call_func(std::string name) {
 	}
 				
 	if (found) {
+		//Backup the array
+		backup_vars = vars;
+		
 		for (int i = 0; i<content.size(); i++) {
 			run(content.at(i),true);
 		}

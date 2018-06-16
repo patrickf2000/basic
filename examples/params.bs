@@ -1,0 +1,21 @@
+Comment params.bs
+Comment This tests command line parameters
+
+Function Param[str1,str2]
+Begin
+	Print "Str1: "
+	Print str1
+	PrintLine ""
+	
+	Print "Str2: "
+	Print str2
+	PrintLine ""
+End
+
+Var msg1
+Var msg2
+
+Define msg1 as "Hello!"
+Define msg2 as "How are you?"
+
+Call Param[msg1,msg2]
