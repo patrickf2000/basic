@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(basic)
 
+file(GLOB_RECURSE INCS "*.hh")
+
 set(SRC
 	main.cxx
 	interpreter.cxx
@@ -13,4 +15,4 @@ set(SRC
 	file.cxx
 )
 
-add_executable(basic ${SRC})
+add_executable(basic ${SRC} ${INCS})
