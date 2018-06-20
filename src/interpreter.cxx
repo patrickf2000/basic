@@ -68,9 +68,13 @@ void Interpreter::init() {
 	//All paths are hard-coded right now; eventually,
 	//they will be loaded from a config file.
 	include_paths.push_back("");
+#ifdef _WIN32
+	include_paths.push_back("C:\\basic\\stdlib\\");
+#else
 	include_paths.push_back("/usr/include/basic/");
 	include_paths.push_back("/usr/local/include/basic/");
 	include_paths.push_back("/opt/basic/include/");
+#endif
 }
 
 //The main interpreter
