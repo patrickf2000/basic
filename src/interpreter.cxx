@@ -217,8 +217,12 @@ Ret Interpreter::run(std::string line, bool ignore) {
 			} else if (first=="Comment" || line.length()==0 || line[0]=='#') {
 				//We do nothing here
 			} else if (first=="Clear") {
+#ifdef _WIN32
+				system("cls");
+#else
 				std::cout << "\033[2J" << std::endl;
 				std::cout << "\033[1;1H";
+#endif
 				
 			//Defining a var works this way:
 			// 1) Var v-> This creates the variable.
