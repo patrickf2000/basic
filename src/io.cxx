@@ -101,13 +101,35 @@ void input(std::string line) {
 
 //The logic for the color command
 //Our colors are below
+#ifndef _WIN32
 const std::string red("\033[0;31m");
 const std::string green("\033[1;32m");
 const std::string yellow("\033[1;33m");
 const std::string cyan("\033[0;36m");
 const std::string magenta("\033[0;35m");
 const std::string reset("\033[0m");
+#endif
 
+#ifdef _WIN32
+void color(std::string line) {
+	if (line == "red") {
+		system("color 04");
+	} else if (line == "green") {
+		system("color 02");
+	} else if (line == "yellow") {
+		system("color 06");
+	} else if (line == "cyan") {
+		system("color 09");
+	} else if (line == "magenta") {
+		system("color 0D");
+	} else if (line == "none") {
+		system("color 0F");
+	} else {
+		std::cout << "Error: Unknown color." << std::endl;
+		std::cout << "Type \"ColorHelp\" for a list of options." << std::endl;
+	}
+}
+#else
 void color(std::string line) {
 	if (line=="red") {
 		std::cout << red;
@@ -126,13 +148,23 @@ void color(std::string line) {
 		std::cout << "Type \"ColorHelp\" for a list of options." << std::endl;
 	}
 }
+#endif
 
 void color_help() {
 	std::cout << "Below are a list of available colors:" << std::endl;
+#ifdef _WIN32
+	std::cout << "red" << std::endl
+		<< "green" << std::endl
+		<< "yellow" << std::endl
+		<< "cyan" << std::endl
+		<< "magenta" << std::endl
+		<< "none" << std::endl;
+#else
 	std::cout << red << "red" << std::endl
 	<< green << "green" << std::endl
 	<< yellow << "yellow" << std::endl
 	<< cyan << "cyan" << std::endl
 	<< magenta << "magenta" << std::endl
 	<< reset << "none" << std::endl;
+#endif
 }
