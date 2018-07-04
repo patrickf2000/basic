@@ -1,2 +1,5 @@
 /build
-
+*.aux
+*.log
+*.toc
+*.pdf
