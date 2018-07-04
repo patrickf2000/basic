@@ -3,10 +3,12 @@ FLAGS=-std=c++11
 CFLAGS=$(FLAGS)
 LDFLAGS=$(FLAGS)
 BUILD_DIR=./build
+DOC_DIR=./doc
 
 SRC := $(wildcard ./src/*.cxx)
 OBJECTS := $(patsubst ./src/%.cxx,$(BUILD_DIR)/%.o,$(SRC))
 
+.PHONY: all clean doc
 all: dirs objects
 
 dirs:
@@ -17,6 +19,9 @@ objects: $(OBJECTS)
 	
 $(BUILD_DIR)/%.o: ./src/%.cxx
 	$(CXX) $(CFLAGS) -c -o $@ $<
+	
+doc:
+	pdflatex doc/basic.tex --output-directory=${DOC_DIR}
 	
 clean:
 	rm -r ./build

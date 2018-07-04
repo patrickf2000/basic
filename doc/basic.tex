@@ -1,0 +1,60 @@
+%basic.tex
+%This is the latex documentation for my BASIC language.
+\documentclass{report}
+\usepackage{listings}
+
+\begin{document}
+
+%The title
+\title{BASIC}
+\author{patrickf200}
+\maketitle
+
+\tableofcontents
+
+%================================================
+%Introduction
+\chapter{Welcome to BASIC!}
+
+Welcome to the documentation for this BASIC interpreter. This documentation explains how the interpreter and the language works. While we try to add complete documentation here, you should refer to some of the examples in the 'examples' directory. Additionally, I recommend that you open a BASIC shell and give some of these commands a try as you read.
+\newline
+
+\noindent
+I hope you have as much fun using this interpreter as I did making it. Enjoy!
+\newline
+
+\section{Language changes:}
+
+I will generally try to avoid drastic language changes, as that creates a mess among existing programs. However, it may occassionally be necessary in order to make things easier. As far as backwards compatibility goes, while it depends on the feature, I may or may not retain the old way of doing something. Backwards compatibility often leads to software bloat, and can discourage changing to the new way. Ultimately, it will depend on the change. If anything, I hope the changes will be in the way of new features.
+
+%================================================
+%Using the interpreter
+\chapter{Using the Interpreter}
+The interpreter can be used in two ways: Shell mode and File mode. All commands are valid both in Shell mode and File mode, although some are meant more for shell mode.
+
+\section{Shell Mode}
+To use shell mode, simply run the program (the binary is called 'basic'). When you do so, you should be greeted with the a prompt that looks something like this:
+
+\begin{lstlisting}
+BASIC>
+\end{lstlisting}
+
+\noindent This is where you type your commands. All commands begin with a capital letter, and are case sensitive. If you wish to create a function (let's say its called 'Hello'), you will notice that the prompt will look something like this:
+
+\begin{lstlisting}
+BASIC> [Hello]
+\end{lstlisting}
+
+\noindent To change the prompt title, you can use the 'Program' command, like this:
+
+\begin{lstlisting}
+BASIC> Program Hello
+Hello>
+\end{lstlisting}
+
+\noindent To exit the interpreter, use the 'Exit' command.
+
+\section{File Mode}
+File mode is very easy. To do so, simply run the basic binary, followed by the path to your file name (if the file is in the current working directory, just the file name will do). Basic currently takes no command line parameters. If you want author and license information, go to shell mode and use the 'Author' command. To see version information, use the 'Version' command. Note that you are not limited to just one file. In file mode, you can pass as many programs to the binary as you wish; they will be executed one at a time.
+
+\end{document}
