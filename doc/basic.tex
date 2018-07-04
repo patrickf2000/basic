@@ -267,4 +267,97 @@ File Read (file name) to (list variable)
 Writing files:
 File Write (list variable) to (file name)
 
+%================================================
+%All Commands
+\chapter{All Commands}
+
+\begin{itemize}
+\item{Print (string or var)}\newline
+Print to the console (no new line)
+
+\item{PrintLine (string or var)}\newline
+Print to the console (end in new line)
+
+\item{Exit}\newline
+Exit a program
+
+\item{Function (name)}\newline
+Declare a new function
+
+\item{Begin}\newline
+Begin the body of a function
+
+\item{End}\newline
+End the body of a function
+
+\item{Clear}\newline
+Clear the console screen
+
+\item{Comment (content)}\newline
+Indicates comments in a source file.
+
+\item{Var (name)}\newline
+Create a new variable.
+
+\item{Define (var name) as (value)}\newline
+Define a variable
+
+\item{Add (no,var) and (no,var)}\newline
+Add two numbers
+
+\item{Sub (no,var) and (no,var)}\newline
+Subtract two numbers.
+
+\item{Mp (no,var) and (no,var)}\newline
+Multiply two numbers.
+
+\item{Div (no,var) and (no,var)}\newline
+Divide two numbers.
+
+\item{Remainder (no,var) and (no,var)}\newline
+Get the remainder of two numbers when divided (equivalent to modulus in most other languages).
+
+\item{Memset (value)}\newline
+Set the value of local memory.
+
+\item{Set (var)}\newline
+Set the value of local memory to a variable.
+
+\item{StrLen (string,var)}\newline
+Get the length of a string (value saved to memory).
+
+\item{Char (char or no) in (string,var)}\newline
+Gets the location of a particular character or the character a particular location. The value is saved to memory. Note that if you wish to input a variable, make sure it is at least two characters long; if not, the command will think you are looking for the location of a character.
+
+\item{Kill (var)}\newline
+Erase a variable and its value.
+
+\item{Destroy [vars,mem,all]}\newline
+Destroy all variables, the local memory, or everything.
+
+\item{Abs (var, no)}\newline
+Get the absolute value of a number.
+
+\item{Random (no)}\newline
+Generate a random number up to a certain limit (value saved to memory).
+
+\item{Color (color name)}\newline
+Set the text color in the console (may not work on all systems or terminals).
+
+\item{ColorHelp}\newline
+Get a list of available colors (for the color command).
+
+\item{Input (var)}\newline
+Prompt the user for input.
+
+\item{Program (name)}\newline
+Set the text in the shell prompt.
+
+\item{Author}\newline
+Display author and license information.
+
+\item{Version}\newline
+Display version information.
+\end{itemize}
+
 \end{document}
