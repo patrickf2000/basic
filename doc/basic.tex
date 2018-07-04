@@ -130,4 +130,39 @@ The 'Kill' command is used to completely erase and remove variables from the glo
 
 The 'Destroy' command is used to wipe memory. It takes one of three parameters: vars, lists, mem, all. The 'vars' parameter clears all variales. The 'lists' parameter clears all lists (including the command line arguments list, 'args'). The 'mem' parameter will reset local memory. The 'all' parameter will combine the other two.
 
+%================================================
+%Lists
+\chapter{Lists}
+
+\section{Introduction}
+
+BASIC has support for lists, commonly called arrays in other languages. While similar to variables, Lists currently exist only in the global scope. Unlike other commands, there is only one List command, with multiple options.
+
+\section{Syntax}
+
+\begin{itemize}
+\item{Creating lists:}\newline
+List (list name)
+
+\item{Adding items to lists:}\newline
+List Add (var,value) to (list name)
+
+\item{Getting list length:}\newline
+List Length of (list name)\newline
+Note: The value is saved to memory.
+
+\item{Getting an item in a list:}\newline
+List Show (index) in (list name)
+
+\item{Removing an item from a list:}\newline
+List Remove (index) in (list name)
+
+\item{Clearing lists:}\newline
+List Clear (list name)
+
+\item{Destroying list variables:}\newline
+List Kill (list name)
+
+\end{itemize}
+
 \end{document}
