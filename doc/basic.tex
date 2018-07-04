@@ -204,4 +204,36 @@ Unlike most other programming languages, BASIC does not use symbolic operators; 
 
 This is important. You CANNOT nest conditionals in BASIC. If you try to do so, you will create a conflict, and the program will get stuck (it shouldn't freeze your computer, though; Ctrl-C should kill it). If you must nest conditionals, you can enclose the next conditional statement in a function, and call that function.
 
+%================================================
+%Loops
+\chapter{Loops}
+
+\section{Introduction}
+
+There are two different types of loops in BASIC: the simple loop and the for loop.
+
+\section{The simple loop}
+
+The simple loop is called by the 'Loop' command. The reason why it is not called the 'stupid loop' is because it does give you a way out. The simple loop simply runs a set of commands a certain number of times. This is the syntax: Loop (no or variable)
+
+A simple loop is only useful if you only need to run something a certain number of times AND you do not need access to the current index. To use it, simply use the loop command, followed by the body, and ending with the 'Stop' command.
+
+\section{The for loop}
+
+The for loop is similar in a lot of ways to the simple loop. The main difference is that it gives you access to the current index. This is the syntax: For (var) to (var or number)
+Below is an example:
+
+\begin{lstlisting}
+Var i
+Define i as 0
+
+For i to 11
+PrintLine i
+Stop
+\end{lstlisting}
+
+\section{Loop limitations}
+
+Both loops have a few limitations. First, we currently have no way to break out early from a loop. Once you start a loop, you are committed, so make sure it is not infinite loop. Secondly, you CANNOT nest loops or conditionals in a loop. To circumvent this, use functions. Finally, if you use the 'Var' command in a loop, you must use the 'Kill' command so you are not constantly redifining variables and needlessly growing the variable arrary.
+
 \end{document}
