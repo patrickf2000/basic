@@ -25,6 +25,7 @@ doc:
 	
 clean:
 	rm -r ./build
+	rm *.{aux,log,toc,pdf}
 	
 install:
 	install build/basic /usr/local/bin
