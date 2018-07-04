@@ -236,4 +236,35 @@ Stop
 
 Both loops have a few limitations. First, we currently have no way to break out early from a loop. Once you start a loop, you are committed, so make sure it is not infinite loop. Secondly, you CANNOT nest loops or conditionals in a loop. To circumvent this, use functions. Finally, if you use the 'Var' command in a loop, you must use the 'Kill' command so you are not constantly redifining variables and needlessly growing the variable arrary.
 
+%================================================
+%System IO
+\chapter{System IO}
+
+\section{The Console}
+
+There are three main console operations: Printing, clearing the screen, and coloring text. You can print using one of two commands: Print and PrintLine. Print just prints what you want, but does not end with a new line. PrintLine does. Print is ideal for user input prompts and when you wish to display variables and text on one line.
+
+Clearing the screen is done using the Clear command. This will clear your console and reset the cursor.
+
+The Color command is used to set the text color. Use ColorHelp to get a list of available colors. Color uses ASCII escape sequences to color text, and while it should be supported by the majority of consoles and systems, you may still run into cases where it causes wierd behavior.
+
+\section{User Input}
+
+You can get user input from the console using the Input command. Input takes a variable as a parameter. If you want "Press any key to continue" behavior, simply provide Input without any variables.
+
+\section{Command Line Arguments}
+
+If you are running in file mode, you can access command line arguments. Arguments are passed to a List called "args". You can access and use this like any other list.
+WARNING: If you use the List Kill or the Destroy command, you can destroy this list. If you have any command line arguments, it is advisable to use them as early as possible.
+
+\section{File IO}
+
+BASIC now has simple support for file operations. At this point, it can only read and write files. Files are read line by line to a List, and writing is done by passing a List (where each element represents a single line) to be read and written. Below is the syntax:
+
+Reading files:
+File Read (file name) to (list variable)
+
+Writing files:
+File Write (list variable) to (file name)
+
 \end{document}
