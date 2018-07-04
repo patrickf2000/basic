@@ -96,4 +96,38 @@ Define message as "Hello!"
 Call PrintMsg[message,"How are you?"]
 \end{lstlisting}
 
+%================================================
+%Variables/local memory
+\chapter{Variables/Local Memory}
+
+\section{Introduction to Variables and Local Memory}
+
+Depending on what kind of a programming background you come from, you may or may not find variables and the concept of local memory to be a little wierd. Hopefully not. Like most programming languages, variables exist on the local and global scope (prior to BASIC version 1.2, they only existed globally). Global variables can be accessed anywhere in the program, including functions, after they have been declared. Local variables are declared in a function, and destroyed when the function returns.
+
+Local memory is nothing special. It is simply a static variable in the interpreter that can be controlled by the programmer. Many commands return their value to local memory. Local memory is useful when you want to temporarily set or pass a value without creating an entire variable.
+
+\section{Creating and defining variables}
+
+Defining variables is easy, but I will admit that it is a little more cumbersome than in other languages. This has been changed slightly to make it easier, though.
+
+Creating variables: To create variables, use the 'Var' keyword, followed by a name. You do not define the variable here; all you are doing is creating it. If a variable by that name already exists, it will not be re-created; nothing will happen.
+
+Defining variables: Defining variables is used by the 'Define' command. The syntax is: Define (var name) as (value). String values must be enclosed in quotation marks. To set the result of a command, use the syntax as above, only enclose your command in parentheses. Variables can also be defined by using local memory. See below in the section on local memory.
+
+\section{Using local memory}
+
+Local memory, conceptually speaking, is not that different from variables. The main difference is that only one form of it exists, and it must be copied to a variable to be used. However, local memory is not read-only to the user; you are free to set it as well.
+
+To set local memory, use the 'Memset' command, like this: Memset (value)
+
+To copy local memory to a variable, use the 'Set' command, like this: Set (variable name)
+
+To clear local memory, you can use one of two commands. First, you can use 'Memset', like this: Memset "". Or, you can use the 'Destroy' command, which we will cover next.
+
+\section{Kill and Destroy}
+
+The 'Kill' command is used to completely erase and remove variables from the global variable array. Simply use it like this: Kill (var name)
+
+The 'Destroy' command is used to wipe memory. It takes one of three parameters: vars, lists, mem, all. The 'vars' parameter clears all variales. The 'lists' parameter clears all lists (including the command line arguments list, 'args'). The 'mem' parameter will reset local memory. The 'all' parameter will combine the other two.
+
 \end{document}
